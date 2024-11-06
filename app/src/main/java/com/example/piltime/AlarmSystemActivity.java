@@ -93,7 +93,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //이제 여기에 넘어가는 생성하러 넘어가는 버튼 필요
-                Intent intent = new Intent(getApplicationContext(), com.example.tempproject.SettingAlarmActivity.class);
+                Intent intent = new Intent(getApplicationContext(), com.example.piltime.SettingAlarmActivity.class);
                 startActivityForResult(intent, 1);
             }
         });

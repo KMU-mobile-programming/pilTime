@@ -172,7 +172,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
 
     // 시간 설정 프래그먼트 표시
     private void ShowTimePickerDialog() {
-        com.example.tempproject.TimePickerFragment timePickerFragment = new com.example.tempproject.TimePickerFragment();
+        com.example.piltime.TimePickerFragment timePickerFragment = new com.example.piltime.TimePickerFragment();
         timePickerFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
