@@ -115,7 +115,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/TitleDateText"
         android:layout_width="224dp"
         android:layout_height="34dp"
         android:layout_marginTop="148dp"

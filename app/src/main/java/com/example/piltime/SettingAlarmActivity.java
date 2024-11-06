@@ -19,8 +19,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 //해야 하는 거: 요일은 됨. 이제 날짜 혹은 매일 알람으로 모드 바꾸는 것과 UI 변경, 세팅 변경 및 설정
 public class SettingAlarmActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
     private LinearLayout layoutAlarms;
     private ArrayList<Integer> hourList;
     private ArrayList<Integer> minuteList;
+    private String startDateString;
 
     private Button setDailyButton, setWeeklyButton, setManualButton;
 
@@ -44,6 +47,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
     private TextView dailyTakeText;
     private LinearLayout manualSetLayout;
     private TextInputEditText setDateInputText;
+    private Button setStartDateButton;
 
     private AlarmSystemActivity.IntervalType intervalType;
 
@@ -90,6 +94,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
         dailyTakeText = findViewById(R.id.DailyTakeText);
         manualSetLayout = findViewById(R.id.ManualSetLayout);
         setDateInputText = findViewById(R.id.SetDateInputText);
+        setStartDateButton = findViewById(R.id.SetStartDateButton);
 
         layoutAlarms = findViewById(R.id.LayoutAlarms);
         addAlarmButton = findViewById((R.id.AddAlarmButton));
@@ -131,6 +136,14 @@ public class SettingAlarmActivity extends AppCompatActivity {
             }
         });
 
+        //시작 날짜 결정 버튼
+        setStartDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDatePickerDialog();
+            }
+        });
+
         //알람 최종 저장 버튼 액션
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,8 +165,20 @@ public class SettingAlarmActivity extends AppCompatActivity {
                     Toast.makeText(SettingAlarmActivity.this, "적어도 하나의 요일을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (setDateInputText.getText().toString() == "" || setDateInputText.getText().toString() == "0")
+                {
+                    if(intervalType == AlarmSystemActivity.IntervalType.manual)
+                    {
+                        Toast.makeText(SettingAlarmActivity.this, "적어도 0일 이상의 날짜를 선택해야 합니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else
+                    {
+                        setDateInputText.setText("0");
+                    }
+                }
 
-                // 결과를 MainActivity로 전달
+                // 결과를 AlarmSystemActivity로 전달
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("alarmName", notificationName);
                 resultIntent.putExtra("alarmQuantity", quantity);
@@ -163,6 +188,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
                 resultIntent.putExtra("alarmMins", minuteList);
                 resultIntent.putIntegerArrayListExtra("alarmDaysOnWeek", selectedDays);
                 resultIntent.putExtra("manualIntervalDate", Integer.parseInt(setDateInputText.getText().toString()));
+                resultIntent.putExtra("startDateString", startDateString);
 
                 setResult(1, resultIntent);
                 finish(); // SecondActivity 종료
@@ -176,11 +202,25 @@ public class SettingAlarmActivity extends AppCompatActivity {
         timePickerFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
+    //날짜 설정 프래그먼트 표시
+    private void ShowDatePickerDialog()
+    {
+        com.example.piltime.DatePickerFragment datePickerFragment = new com.example.piltime.DatePickerFragment();
+        datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
     // 알람 추가 메서드
     public void AddAlarm(Integer hour, Integer minute) {
         hourList.add(hour);
         minuteList.add(minute);
         updateAlarmList();
+    }
+
+    //시작 날짜 설정 완료 함수
+    public void SetStartDate(Date nowStartDate)
+    {
+        startDateString = new SimpleDateFormat("yyyy-MM-dd").format(nowStartDate);
+        setStartDateButton.setText(startDateString);
     }
 
     //복용 간격 방식 갱신

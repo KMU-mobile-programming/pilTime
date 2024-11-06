@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +16,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AlarmSystemActivity extends AppCompatActivity {
 
@@ -52,6 +58,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
         public ArrayList<Integer> daysOnWeek;
         public int manualIntervalDate;
         public ArrayList<DailyAlarm> dailyAlarms;
+        public LocalDate startDate;
     }
 
     public class DailyAlarm
@@ -60,6 +67,8 @@ public class AlarmSystemActivity extends AppCompatActivity {
         public int minute;
         public boolean isTake;
     }
+
+    private TextView titleDateText;
 
     private Button createButton;
 
@@ -82,6 +91,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
             return insets;
         });
 
+        titleDateText = findViewById(R.id.TitleDateText);
         createButton = (Button) findViewById(R.id.Create_Button);
         showTimeScroll = findViewById(R.id.ShowTimeScroll);
         showTimeScrollLayout = findViewById(R.id.ShowTimeScrollLayout);
@@ -111,6 +121,10 @@ public class AlarmSystemActivity extends AppCompatActivity {
     //화면 갱신 함수
     public void ResetScreen(LocalDate selectedDate)
     {
+        //상단의 날짜 갱신
+        String nowDate = String.format("%02d월 %02d일", selectedDate.getMonth(), selectedDate.getDayOfMonth());
+        titleDateText.setText(nowDate);
+
         //1. 현재 alarms가 가지고 있는 모든 AlarmForms 객체들 검색. 조건은 다음과 같음
         // 1-1. 만약 alarms가 매일이거나,
         // 1-2. 날짜 간격 결과가 selectedDate와 일치하거나,
@@ -118,6 +132,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
         //2. 일치하는 AlarmForms에서 모든 DailyAlarm 추출
         //3. DailyAlarm의 hours와 minutes을 추출해서 ShowTimeScroll에 등록
 
+        //오늘의 알람 초기화
         showTimeScrollLayout.removeAllViews();
 
         for(int i = 0; i < alarms.size(); i++)
@@ -136,7 +151,16 @@ public class AlarmSystemActivity extends AppCompatActivity {
                             isOK = true;
                             break;
                         }
+                    } break;
+
+                //그 이후 선택된 날짜와 첫 복용 날짜, 날짜 간격 고려해서 그 날이 복용하는 날인지 확인
+                case manual:
+                    if(selectedDate.isAfter(checkingAlarm.startDate))
+                    {
+                        long daysBetween = ChronoUnit.DAYS.between(checkingAlarm.startDate, selectedDate);
+                        if(daysBetween % checkingAlarm.manualIntervalDate == 0) {isOK = true;}
                     }
+                    break;
             }
 
             //만약 지금 AlarmForm이 조건에 맞지 않으면 다음 AlarmForm 검색
@@ -192,6 +216,10 @@ public class AlarmSystemActivity extends AppCompatActivity {
                 dailyAlarm.isTake = false;
                 alarmForm.dailyAlarms.add(dailyAlarm);
             }
+
+            String tempDate = data.getStringExtra("startDateString");
+            if(tempDate != "") {alarmForm.startDate = LocalDate.parse(tempDate);}
+
 
             Log.d("AlarmSystemActivity", "completeDailyAlarm");
             alarms.add(alarmForm);
