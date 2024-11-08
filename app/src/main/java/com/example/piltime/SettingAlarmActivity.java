@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
     private Button alarmButtonBasic;
     private Button addAlarmButton;
     private ImageButton saveButton;
+    private ImageButton exitButton;
 
     private LinearLayout layoutAlarms;
     private ArrayList<Integer> hourList;
@@ -74,6 +76,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
         });
         Log.d("SettingAlarmActivity", "Finish basic");
         saveButton = findViewById(R.id.Save_Button);
+        exitButton = findViewById(R.id.Exit_Button);
 
         nameInput = findViewById(R.id.NameEditInput);
         quantityInput = findViewById(R.id.QuantityEditInput);
@@ -144,6 +147,13 @@ public class SettingAlarmActivity extends AppCompatActivity {
             }
         });
 
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         //알람 최종 저장 버튼 액션
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,13 +163,13 @@ public class SettingAlarmActivity extends AppCompatActivity {
 
                 // 선택된 요일을 리스트로 저장
                 ArrayList<Integer> selectedDays = new ArrayList<>();
-                if (checkMonday.isChecked()) selectedDays.add(Calendar.MONDAY);
-                if (checkTuesday.isChecked()) selectedDays.add(Calendar.TUESDAY);
-                if (checkWednesday.isChecked()) selectedDays.add(Calendar.WEDNESDAY);
-                if (checkThursday.isChecked()) selectedDays.add(Calendar.THURSDAY);
-                if (checkFriday.isChecked()) selectedDays.add(Calendar.FRIDAY);
-                if (checkSaturday.isChecked()) selectedDays.add(Calendar.SATURDAY);
-                if (checkSunday.isChecked()) selectedDays.add(Calendar.SUNDAY);
+                if (checkMonday.isChecked()) selectedDays.add(1);
+                if (checkTuesday.isChecked()) selectedDays.add(2);
+                if (checkWednesday.isChecked()) selectedDays.add(3);
+                if (checkThursday.isChecked()) selectedDays.add(4);
+                if (checkFriday.isChecked()) selectedDays.add(5);
+                if (checkSaturday.isChecked()) selectedDays.add(6);
+                if (checkSunday.isChecked()) selectedDays.add(7);
 
                 if (selectedDays.isEmpty() && intervalType == AlarmSystemActivity.IntervalType.week) {
                     Toast.makeText(SettingAlarmActivity.this, "적어도 하나의 요일을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
@@ -236,6 +246,12 @@ public class SettingAlarmActivity extends AppCompatActivity {
             case week: weekListLayout.setVisibility(View.VISIBLE); break;
             case manual: manualSetLayout.setVisibility(View.VISIBLE); break;
         }
+    }
+
+    //기존 내용 수정시 AlarmSystemActivity에서 값을 받아오는 함수
+    public void GetandSetOrigin()
+    {
+
     }
 
     // 알람 목록 업데이트

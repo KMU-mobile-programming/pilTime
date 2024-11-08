@@ -1,6 +1,7 @@
 package com.example.piltime;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,10 +73,12 @@ public class AlarmSystemActivity extends AppCompatActivity {
     private TextView titleDateText;
 
     private Button createButton;
+    private Button fixButton;
 
     private ScrollView showTimeScroll;
     private LinearLayout showTimeScrollLayout;
     private Button showAlarmButtonBasic;
+    private Button mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton;
 
     ArrayList<Integer> tempDaysOnWeek;
 
@@ -93,9 +97,18 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
         titleDateText = findViewById(R.id.TitleDateText);
         createButton = (Button) findViewById(R.id.Create_Button);
+        fixButton = findViewById(R.id.Fix_Button);
         showTimeScroll = findViewById(R.id.ShowTimeScroll);
         showTimeScrollLayout = findViewById(R.id.ShowTimeScrollLayout);
         showAlarmButtonBasic = findViewById(R.id.ShowAlarmButtonBasic);
+
+        mondayButton = findViewById(R.id.MondayButton);
+        tuesdayButton = findViewById(R.id.TuesdayButton);
+        wednesdayButton = findViewById(R.id.WednesdayButton);
+        thursdayButton = findViewById(R.id.ThursdayButton);
+        fridayButton = findViewById(R.id.FridayButton);
+        saturdayButton = findViewById(R.id.SaturdayButton);
+        sundayButton = findViewById(R.id.SundayButton);
 
         alarms = new ArrayList<AlarmForm>();
 
@@ -108,7 +121,67 @@ public class AlarmSystemActivity extends AppCompatActivity {
             }
         });
 
+        fixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(AlarmForm tempAlarm: alarms)
+                {
+                    Intent originIntent = new Intent();
+                }
+            }
+        });
 
+        mondayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(1);
+            }
+        });
+        tuesdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(2);
+            }
+        });
+        wednesdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(3);
+            }
+        });
+        thursdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(4);
+            }
+        });
+        fridayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(5);
+            }
+        });
+        saturdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(6);
+            }
+        });
+        sundayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectWeekofDay(7);
+            }
+        });
+
+        Log.e("AlarmSystemActivity", "onCreate is ended");
+    }
+
+    public void SelectWeekofDay(int dayofWeek)
+    {
+        int gapofDate = dayofWeek - LocalDate.now().getDayOfWeek().getValue();
+        LocalDate tempDate = LocalDate.now().plusDays(gapofDate);
+        ResetScreen(tempDate);
     }
 
     @Override
@@ -118,11 +191,52 @@ public class AlarmSystemActivity extends AppCompatActivity {
         ResetScreen(LocalDate.now());
     }
 
+    //수정하거나 삭제할 수 있는 알람 목록
+    private void showAlarmListFragment() {
+        AlarmListFragment fragment = new AlarmListFragment(alarms);
+        fragment.setOnAlarmActionListener(new AlarmListFragment.OnAlarmActionListener() {
+            @Override
+            public void onAlarmEdit(AlarmForm alarm) {
+                // 알람 수정 액션
+                editAlarm(alarm);
+            }
+
+            @Override
+            public void onAlarmDelete(AlarmForm alarm) {
+                // 알람 삭제 액션
+                deleteAlarm(alarm);
+            }
+        });
+
+        fragment.show(getSupportFragmentManager(), "alarms");
+    }
+
+    private void editAlarm(AlarmForm alarm) {
+        // 알람 수정 화면으로 이동하거나 다이얼로그를 표시하여 수정합니다.
+        // 여기서는 간단히 알람 이름을 변경하는 예를 보여드립니다.
+
+        // 예: 알람 이름을 "수정된 알람"으로 변경
+        alarm.name = "수정된 알람";
+
+        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
+        // 필요에 따라 RecyclerView를 업데이트하거나 알람을 다시 설정합니다.
+    }
+
+    private void deleteAlarm(AlarmForm alarm) {
+        // 알람 리스트에서 제거
+        alarms.remove(alarm);
+
+        // 알람을 취소하기 위한 로직을 추가해야 합니다.
+        // AlarmManager를 사용하여 설정된 알람을 취소합니다.
+
+        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
+    }
+
     //화면 갱신 함수
     public void ResetScreen(LocalDate selectedDate)
     {
         //상단의 날짜 갱신
-        String nowDate = String.format("%02d월 %02d일", selectedDate.getMonth(), selectedDate.getDayOfMonth());
+        String nowDate = String.format("%02d월 %02d일", selectedDate.getMonthValue(), selectedDate.getDayOfMonth());
         titleDateText.setText(nowDate);
 
         //1. 현재 alarms가 가지고 있는 모든 AlarmForms 객체들 검색. 조건은 다음과 같음
@@ -179,11 +293,17 @@ public class AlarmSystemActivity extends AppCompatActivity {
                 newButton.setText(time);
                 newButton.setLayoutParams(new ViewGroup.LayoutParams(showAlarmButtonBasic.getLayoutParams()));
 
+                if(alarms.get(alarmIndex).dailyAlarms.get(index).isTake) {newButton.setBackgroundColor(Color.GREEN);}
+                else {newButton.setBackgroundColor(Color.RED);}
+
                 newButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alarms.get(alarmIndex).dailyAlarms.get(index).isTake
                                 = !alarms.get(alarmIndex).dailyAlarms.get(index).isTake;
+
+                        if(alarms.get(alarmIndex).dailyAlarms.get(index).isTake) {newButton.setBackgroundColor(Color.GREEN);}
+                        else {newButton.setBackgroundColor(Color.RED);}
                     }
                 });
 
@@ -218,7 +338,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
             }
 
             String tempDate = data.getStringExtra("startDateString");
-            if(tempDate != "") {alarmForm.startDate = LocalDate.parse(tempDate);}
+            if(tempDate != null) {alarmForm.startDate = LocalDate.parse(tempDate);}
 
 
             Log.d("AlarmSystemActivity", "completeDailyAlarm");
