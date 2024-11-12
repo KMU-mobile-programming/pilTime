@@ -21,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CommunityActivity"></activity>
+        <activity android:name=".PostActivity"></activity>
     </application>
 
 </manifest>
