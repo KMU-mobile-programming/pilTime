@@ -15,6 +15,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".SettingAlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AlarmSystemActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

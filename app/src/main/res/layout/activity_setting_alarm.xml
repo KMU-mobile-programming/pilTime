@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingAlarmActivity">
+
+    <ScrollView
+        android:id="@+id/TimeSettingScroll"
+        android:layout_width="412dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="508dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/LayoutAlarms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/AlarmButtonBasic"
+                android:layout_width="370dp"
+                android:layout_height="90dp"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/AddAlarmButton"
+                android:layout_width="369dp"
+                android:layout_height="90dp"
+                android:text="Button" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="224dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="472dp"
+        android:layout_weight="1"
+        android:text="복용 시간 설정"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Exit_Button"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <ImageButton
+        android:id="@+id/Save_Button"
+        android:layout_width="81dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        tools:ignore="SpeakableTextPresentCheck"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/QuantityInput"
+        android:layout_width="412dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="252dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/QuantityEditInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="약/영양제 갯수"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/NameEditInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="약/영양제 이름" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="411dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="340dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/SetDailyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="매일" />
+
+        <Button
+            android:id="@+id/SetWeeklyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="주 단위" />
+
+        <Button
+            android:id="@+id/SetManualButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="수동 설정" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WeekListLayout"
+        android:layout_width="412dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="392dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/CheckSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="일" />
+
+        <CheckBox
+            android:id="@+id/CheckMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="월" />
+
+        <CheckBox
+            android:id="@+id/CheckTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="화" />
+
+        <CheckBox
+            android:id="@+id/CheckWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="수" />
+
+        <CheckBox
+            android:id="@+id/CheckThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="목" />
+
+        <CheckBox
+            android:id="@+id/CheckFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="금" />
+
+        <CheckBox
+            android:id="@+id/CheckSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="토" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/DailyTakeText"
+        android:layout_width="166dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="400dp"
+        android:text="이 약은 매일 복용합니다."
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ManualSetLayout"
+        android:layout_width="412dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="404dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/SetStartDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시작 날짜 설정" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="232dp"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/SetDateInputText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint"
+                android:text="1"
+                android:textAlignment="textEnd" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
