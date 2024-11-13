@@ -117,18 +117,14 @@ public class AlarmSystemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //이제 여기에 넘어가는 생성하러 넘어가는 버튼 필요
                 Intent intent = new Intent(getApplicationContext(), com.example.piltime.SettingAlarmActivity.class);
+                intent.putExtra("requestCode", 1);
                 startActivityForResult(intent, 1);
             }
         });
 
         fixButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                for(AlarmForm tempAlarm: alarms)
-                {
-                    Intent originIntent = new Intent();
-                }
-            }
+            public void onClick(View view) { ShowAlarmListFragment(); }
         });
 
         mondayButton.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +188,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
     }
 
     //수정하거나 삭제할 수 있는 알람 목록
-    private void showAlarmListFragment() {
+    private void ShowAlarmListFragment() {
         AlarmListFragment fragment = new AlarmListFragment(alarms);
         fragment.setOnAlarmActionListener(new AlarmListFragment.OnAlarmActionListener() {
             @Override
@@ -216,7 +212,8 @@ public class AlarmSystemActivity extends AppCompatActivity {
         // 여기서는 간단히 알람 이름을 변경하는 예를 보여드립니다.
 
         // 예: 알람 이름을 "수정된 알람"으로 변경
-        alarm.name = "수정된 알람";
+        Intent intent = new Intent(getApplicationContext(), com.example.piltime.SettingAlarmActivity.class);
+        startActivityForResult(intent, 2);
 
         // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
         // 필요에 따라 RecyclerView를 업데이트하거나 알람을 다시 설정합니다.

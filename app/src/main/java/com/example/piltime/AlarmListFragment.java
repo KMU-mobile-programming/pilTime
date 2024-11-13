@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-@SuppressLint("ValidFragment")
 public class AlarmListFragment extends androidx.fragment.app.DialogFragment {
 
     private RecyclerView recyclerView;
