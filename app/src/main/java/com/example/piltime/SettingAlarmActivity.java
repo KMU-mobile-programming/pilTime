@@ -28,30 +28,30 @@ import java.util.Date;
 //해야 하는 거: 요일은 됨. 이제 날짜 혹은 매일 알람으로 모드 바꾸는 것과 UI 변경, 세팅 변경 및 설정
 public class SettingAlarmActivity extends AppCompatActivity {
 
-    private TextInputEditText nameInput;
-    private TextInputEditText quantityInput;
+    protected TextInputEditText nameInput;
+    protected TextInputEditText quantityInput;
 
-    private Button alarmButtonBasic;
-    private Button addAlarmButton;
-    private ImageButton saveButton;
-    private ImageButton exitButton;
+    protected Button alarmButtonBasic;
+    protected Button addAlarmButton;
+    protected ImageButton saveButton;
+    protected ImageButton exitButton;
 
-    private LinearLayout layoutAlarms;
-    private ArrayList<Integer> hourList;
-    private ArrayList<Integer> minuteList;
-    private String startDateString;
+    protected LinearLayout layoutAlarms;
+    protected ArrayList<Integer> hourList;
+    protected ArrayList<Integer> minuteList;
+    protected String startDateString;
 
-    private Button setDailyButton, setWeeklyButton, setManualButton;
+    protected Button setDailyButton, setWeeklyButton, setManualButton;
 
-    private CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday, checkSaturday, checkSunday;
+    protected CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday, checkSaturday, checkSunday;
 
-    private LinearLayout weekListLayout;
-    private TextView dailyTakeText;
-    private LinearLayout manualSetLayout;
-    private TextInputEditText setDateInputText;
-    private Button setStartDateButton;
+    protected LinearLayout weekListLayout;
+    protected TextView dailyTakeText;
+    protected LinearLayout manualSetLayout;
+    protected TextInputEditText setDateInputText;
+    protected Button setStartDateButton;
 
-    private AlarmSystemActivity.IntervalType intervalType;
+    protected AlarmSystemActivity.IntervalType intervalType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,34 +208,34 @@ public class SettingAlarmActivity extends AppCompatActivity {
     }
 
     // 시간 설정 프래그먼트 표시
-    private void ShowTimePickerDialog() {
+    protected void ShowTimePickerDialog() {
         com.example.piltime.TimePickerFragment timePickerFragment = new com.example.piltime.TimePickerFragment();
         timePickerFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     //날짜 설정 프래그먼트 표시
-    private void ShowDatePickerDialog()
+    protected void ShowDatePickerDialog()
     {
         com.example.piltime.DatePickerFragment datePickerFragment = new com.example.piltime.DatePickerFragment();
         datePickerFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     // 알람 추가 메서드
-    public void AddAlarm(Integer hour, Integer minute) {
+    protected void AddAlarm(Integer hour, Integer minute) {
         hourList.add(hour);
         minuteList.add(minute);
         updateAlarmList();
     }
 
     //시작 날짜 설정 완료 함수
-    public void SetStartDate(Date nowStartDate)
+    protected void SetStartDate(Date nowStartDate)
     {
         startDateString = new SimpleDateFormat("yyyy-MM-dd").format(nowStartDate);
         setStartDateButton.setText(startDateString);
     }
 
     //복용 간격 방식 갱신
-    private void UpdateIntervalType(AlarmSystemActivity.IntervalType nowType)
+    protected void UpdateIntervalType(AlarmSystemActivity.IntervalType nowType)
     {
         weekListLayout.setVisibility(View.GONE);
         dailyTakeText.setVisibility(View.GONE);
@@ -249,14 +249,8 @@ public class SettingAlarmActivity extends AppCompatActivity {
         }
     }
 
-    //기존 내용 수정시 AlarmSystemActivity에서 값을 받아오는 함수
-    public void GetandSetOrigin()
-    {
-
-    }
-
     // 알람 목록 업데이트
-    private void updateAlarmList() {
+    protected void updateAlarmList() {
         layoutAlarms.removeAllViews();
 
         for (int i = 0; i < hourList.size(); i++) {

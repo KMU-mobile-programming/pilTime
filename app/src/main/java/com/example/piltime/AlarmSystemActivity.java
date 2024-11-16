@@ -1,5 +1,8 @@
 package com.example.piltime;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AlarmSystemActivity extends AppCompatActivity {
@@ -83,6 +87,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
     ArrayList<Integer> tempDaysOnWeek;
 
     public ArrayList<AlarmForm> alarms;
+    private AlarmForm edittingAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,11 +213,27 @@ public class AlarmSystemActivity extends AppCompatActivity {
     }
 
     private void editAlarm(AlarmForm alarm) {
-        // 알람 수정 화면으로 이동하거나 다이얼로그를 표시하여 수정합니다.
-        // 여기서는 간단히 알람 이름을 변경하는 예를 보여드립니다.
+        edittingAlarm = alarm;
 
-        // 예: 알람 이름을 "수정된 알람"으로 변경
-        Intent intent = new Intent(getApplicationContext(), com.example.piltime.SettingAlarmActivity.class);
+        // 알람 수정 화면으로 이동
+        Intent intent = new Intent(getApplicationContext(), com.example.piltime.EditAlarmActivity.class);
+
+        intent.putExtra("alarmName", alarm.name);
+        intent.putExtra("alarmQuantity", alarm.quantity);
+        intent.putExtra("intervalType", AlarmSystemActivity.IntervalType.toInterger(alarm.intervalType));
+
+        ArrayList<Integer> tempHours = new ArrayList<Integer>();
+        ArrayList<Integer> tempmins = new ArrayList<Integer>();
+        for (DailyAlarm dailyAlarm: alarm.dailyAlarms) {
+            tempHours.add(dailyAlarm.hour);
+            tempmins.add(dailyAlarm.minute);
+        }
+        intent.putIntegerArrayListExtra("alarmHours", tempHours);
+        intent.putIntegerArrayListExtra("alarmMins", tempmins);
+
+        intent.putIntegerArrayListExtra("alarmDaysOnWeek", alarm.daysOnWeek);
+        intent.putExtra("manualIntervalDate", alarm.manualIntervalDate);
+        if(alarm.startDate != null) {intent.putExtra("startDateString", alarm.startDate.toString());}
         startActivityForResult(intent, 2);
 
         // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
@@ -312,9 +333,19 @@ public class AlarmSystemActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == 1 && resultCode == 1)
+        if(resultCode != 1) {return;}
+
+        AlarmForm alarmForm = new AlarmForm();
+        if(requestCode == 2)
         {
-            AlarmForm alarmForm = new AlarmForm();
+            alarmForm = edittingAlarm;
+            AlarmUtils.cancelAlarms(this, alarmForm);
+            edittingAlarm = null;
+        }
+
+        if (requestCode == 1 || requestCode == 2)
+        {
+
             alarmForm.dailyAlarms = new ArrayList<DailyAlarm>();
             alarmForm.name = data.getStringExtra("alarmName");
             alarmForm.quantity = data.getIntExtra("alarmQuantity", 0);
@@ -339,7 +370,10 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
 
             Log.d("AlarmSystemActivity", "completeDailyAlarm");
-            alarms.add(alarmForm);
+
+            if(requestCode == 1) { alarms.add(alarmForm); }
+
+            AlarmUtils.setAlarms(this, alarmForm);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
