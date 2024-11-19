@@ -46,39 +46,46 @@
         android:padding="12dp" />
 
     <!-- 내용 입력 -->
+
+    <!-- 복용약 리스트 헤더 -->
     <EditText
         android:id="@+id/postContentEditText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="33dp"
         android:layout_weight="1"
-        android:hint="내용을 작성하세요"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
         android:background="@drawable/edittext_background"
+        android:gravity="top|start"
+        android:hint="내용을 작성하세요"
+        android:inputType="textMultiLine"
         android:padding="12dp" />
 
-    <!-- 복용약 리스트 -->
     <TextView
         android:id="@+id/medicineListHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="내 복용약 리스트"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:text="내 복용약 리스트"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
-    <!-- 복용약 리스트를 담을 LinearLayout (동적으로 추가될 곳) -->
-    <LinearLayout
-        android:id="@+id/medicineListLayout"
+    <!-- HorizontalScrollView로 감싸서 복용약 리스트를 가로 스크롤 가능하게 만듦 -->
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:scrollbars="none"
+        android:layout_marginTop="8dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp">
-        <!-- 복용약 아이템들이 동적으로 추가될 부분 -->
-    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/medicineListLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- 복용약 아이템들이 동적으로 추가될 부분 -->
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <!-- 작성 버튼 -->
     <Button

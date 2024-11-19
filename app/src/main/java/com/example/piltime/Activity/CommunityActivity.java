@@ -1,4 +1,4 @@
-package com.example.piltime;
+package com.example.piltime.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.piltime.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CommunityActivity extends AppCompatActivity {

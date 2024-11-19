@@ -1,6 +1,4 @@
-package com.example.piltime;
-
-import com.example.piltime.Medicine.Medicine;
+package com.example.piltime.model;
 
 import java.util.ArrayList;
 import java.util.List;

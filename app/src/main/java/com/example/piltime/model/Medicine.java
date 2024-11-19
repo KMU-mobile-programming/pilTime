@@ -1,4 +1,4 @@
-package com.example.piltime.Medicine;
+package com.example.piltime.model;
 
 public class Medicine {
     private String name;      // 약 이름

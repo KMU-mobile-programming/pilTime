@@ -8,8 +8,8 @@
     app:cardElevation="4dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -17,16 +17,16 @@
             android:id="@+id/medicineImageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/sample_product_icon"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample_product_icon" />
 
         <TextView
             android:id="@+id/medicineNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="복용약 이름"
+            android:layout_marginTop="4dp"
             android:gravity="center"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp" />
+            android:text="복용약 이름"
+            android:textSize="12sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

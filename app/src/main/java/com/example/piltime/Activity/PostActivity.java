@@ -1,8 +1,6 @@
-package com.example.piltime;
+package com.example.piltime.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,18 +17,21 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.example.piltime.Database.DatabaseManager;
+import com.example.piltime.Database.AppDatabaseHelper;
+import com.example.piltime.R;
+
+import java.util.List;
 
 public class PostActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
-    private static final String PREF_NAME = "UserPrefs";
-    private static final String KEY_MEDICINE_LIST = "medicine_list";
     private ImageView postImageView;
     private FrameLayout imageContainer;
     private Uri selectedImageUri;
     private LinearLayout medicineListLayout;
+
+    private DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,9 @@ public class PostActivity extends AppCompatActivity {
         ImageButton selectImageButton = findViewById(R.id.selectImageButton);
         imageContainer = findViewById(R.id.imageContainer);
         medicineListLayout = findViewById(R.id.medicineListLayout);
+
+        // DatabaseManager 초기화
+        databaseManager = new AppDatabaseHelper(this);
 
         // 갤러리 열기 설정
         imageContainer.setOnClickListener(v -> openGallery());
@@ -65,35 +69,35 @@ public class PostActivity extends AppCompatActivity {
             finish();
         });
 
-        // SharedPreferences에서 복용약 데이터 로드
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        Set<String> medicineNames = loadMedicineDataFromSharedPreferences(sharedPreferences);
-
-
-        // 복용약 리스트 동적 생성
+        // 데이터베이스에서 복용약 목록 가져오기 (전체 약물)
+        List<String> medicineNames = databaseManager.getAllMedicines();
         for (String medicineName : medicineNames) {
             Log.d("PostActivity", "Loaded medicine: " + medicineName);
-            addMedicineItem(medicineName);
+            addMedicineItem(medicineName);  // 복용약 카드 아이템 추가
         }
     }
 
-    // SharedPreferences에서 데이터 로드
-    private Set<String> loadMedicineDataFromSharedPreferences(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getStringSet(KEY_MEDICINE_LIST, new HashSet<>());
-    }
-
-    // 복용약 아이템 추가 메서드
+    // 복용약 아이템을 카드 형태로 추가하는 메서드
     private void addMedicineItem(String medicineName) {
+        // 카드 뷰 생성
         View itemView = LayoutInflater.from(this).inflate(R.layout.medicine_item_layout, medicineListLayout, false);
 
         TextView textView = itemView.findViewById(R.id.medicineNameTextView);
         ImageView imageView = itemView.findViewById(R.id.medicineImageView);
 
+        // 약 이름을 텍스트뷰에 설정
         textView.setText(medicineName);
-        imageView.setImageResource(R.drawable.sample_product_icon);
-
+        imageView.setImageResource(R.drawable.sample_product_icon);  // 샘플 아이콘 설정
+        // 이미지 클릭 이벤트 추가
+        itemView.setOnClickListener(v -> {
+            // 클릭된 약의 이미지를 게시글 이미지에 올리기
+            int medicineImageResId = R.drawable.sample_product_icon;
+            postImageView.setImageResource(medicineImageResId);  // 약 이미지로 변경
+            postImageView.setVisibility(View.VISIBLE);  // 이미지를 표시
+            findViewById(R.id.selectImageButton).setVisibility(View.GONE);  // 이미지 선택 버튼 숨기기
+        });
+        // 만들어진 카드 뷰를 리스트 레이아웃에 추가
         medicineListLayout.addView(itemView);
-        medicineListLayout.invalidate();
     }
 
     // 갤러리 열기 메서드
@@ -102,10 +106,27 @@ public class PostActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_IMAGE_PICK);
     }
 
-    // 이미지 선택 결과 처리
+    // 이미지 선택 후 결과 처리
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            String postTitle = data.getStringExtra("postTitle");
+            String postContent = data.getStringExtra("postContent");
+
+            // 이미지 URI가 있다면
+            String imageUriString = data.getStringExtra("imageUri");
+            if (imageUriString != null) {
+                Uri imageUri = Uri.parse(imageUriString);
+                postImageView.setImageURI(imageUri);
+            } else {
+                // 리소스 ID가 있다면
+                int imageResId = data.getIntExtra("imageResId", -1);
+                if (imageResId != -1) {
+                    postImageView.setImageResource(imageResId);
+                }
+            }
+        }
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
 
