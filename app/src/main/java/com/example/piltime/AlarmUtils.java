@@ -8,11 +8,16 @@ import android.content.Intent;
 import android.os.Build;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Dictionary;
+import java.util.Map;
 
 import com.example.piltime.AlarmSystemActivity.*;
 
 public class AlarmUtils {
+
+    public static Map<Integer, ArrayList<Integer>> manualRequestCodesMap;
 
     public static void setAlarms(Context context, AlarmForm alarmForm) {
         // AlarmManager 인스턴스 가져오기
@@ -98,6 +103,8 @@ public class AlarmUtils {
         LocalDate startDate = LocalDate.now(); // 시작 날짜를 현재 날짜로 가정
         int intervalDays = alarmForm.manualIntervalDate;
 
+        ArrayList<Integer> hashCodes = new ArrayList<>();
+
         // 원하는 기간 동안 알람 설정
         int totalDays = 365; // 1년간 설정한다고 가정
         for (int i = 0; i < totalDays; i += intervalDays) {
@@ -123,10 +130,13 @@ public class AlarmUtils {
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
                 );
 
+                hashCodes.add(requestCode);
+
                 // 알람 설정
                 setExactAlarm(alarmManager, calendar, pendingIntent);
             }
         }
+        manualRequestCodesMap.put(alarmId, hashCodes);
     }
 
     @SuppressLint("ScheduleExactAlarm")
@@ -173,6 +183,14 @@ public class AlarmUtils {
                 // 설정한 모든 requestCode를 알고 있어야 함
                 // 여기서는 간단히 alarmManager.cancelAll()을 호출할 수 없음
                 // 실제 구현에서는 저장된 모든 requestCode를 반복하여 취소해야 함
+                ArrayList<Integer> hashCodes = manualRequestCodesMap.get(alarmId);
+
+                for(Integer requestCode: hashCodes)
+                {
+                    cancelAlarm(context, alarmManager, requestCode);
+                }
+
+                manualRequestCodesMap.remove(alarmId);
             }
         }
     }

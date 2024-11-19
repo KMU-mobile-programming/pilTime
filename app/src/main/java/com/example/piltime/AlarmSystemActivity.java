@@ -235,19 +235,21 @@ public class AlarmSystemActivity extends AppCompatActivity {
         intent.putExtra("manualIntervalDate", alarm.manualIntervalDate);
         if(alarm.startDate != null) {intent.putExtra("startDateString", alarm.startDate.toString());}
         startActivityForResult(intent, 2);
-
-        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
-        // 필요에 따라 RecyclerView를 업데이트하거나 알람을 다시 설정합니다.
     }
 
     private void deleteAlarm(AlarmForm alarm) {
-        // 알람 리스트에서 제거
+
+        AlarmUtils.cancelAlarms(this, alarm);
         alarms.remove(alarm);
 
-        // 알람을 취소하기 위한 로직을 추가해야 합니다.
-        // AlarmManager를 사용하여 설정된 알람을 취소합니다.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM월 dd일");
+        LocalDate nowDate = LocalDate.parse(titleDateText.getText(), formatter);
+        ResetScreen(nowDate);
+    }
 
-        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
+    public void ChangeIsTake(DailyAlarm dailyAlarm)
+    {
+
     }
 
     //화면 갱신 함수
@@ -317,6 +319,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
                 newButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         alarms.get(alarmIndex).dailyAlarms.get(index).isTake
                                 = !alarms.get(alarmIndex).dailyAlarms.get(index).isTake;
 
