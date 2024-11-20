@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3D1A5"
     tools:context=".SettingAlarmActivity">
 
     <ScrollView
@@ -52,6 +53,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        style="@style/BasicButtonStyle"
         android:id="@+id/Exit_Button"
         android:layout_width="80dp"
         android:layout_height="70dp"
@@ -63,6 +65,7 @@
         tools:ignore="SpeakableTextPresentCheck"/>
 
     <ImageButton
+        style="@style/BasicButtonStyle"
         android:id="@+id/Save_Button"
         android:layout_width="81dp"
         android:layout_height="84dp"
@@ -120,6 +123,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            style="@style/BasicButtonStyle"
             android:id="@+id/SetDailyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,6 +131,7 @@
             android:text="매일" />
 
         <Button
+            style="@style/BasicButtonStyle"
             android:id="@+id/SetWeeklyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,6 +139,7 @@
             android:text="주 단위" />
 
         <Button
+            style="@style/BasicButtonStyle"
             android:id="@+id/SetManualButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -147,7 +153,7 @@
         android:layout_height="72dp"
         android:layout_marginTop="392dp"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -223,7 +229,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="404dp"
         android:orientation="horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
