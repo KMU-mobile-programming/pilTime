@@ -1,5 +1,8 @@
 package com.example.piltime;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AlarmSystemActivity extends AppCompatActivity {
@@ -83,6 +87,8 @@ public class AlarmSystemActivity extends AppCompatActivity {
     ArrayList<Integer> tempDaysOnWeek;
 
     public ArrayList<AlarmForm> alarms;
+    private AlarmForm edittingAlarm;
+    private LocalDate selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,18 +123,14 @@ public class AlarmSystemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //이제 여기에 넘어가는 생성하러 넘어가는 버튼 필요
                 Intent intent = new Intent(getApplicationContext(), com.example.piltime.SettingAlarmActivity.class);
+                intent.putExtra("requestCode", 1);
                 startActivityForResult(intent, 1);
             }
         });
 
         fixButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                for(AlarmForm tempAlarm: alarms)
-                {
-                    Intent originIntent = new Intent();
-                }
-            }
+            public void onClick(View view) { ShowAlarmListFragment(); }
         });
 
         mondayButton.setOnClickListener(new View.OnClickListener() {
@@ -180,19 +182,20 @@ public class AlarmSystemActivity extends AppCompatActivity {
     public void SelectWeekofDay(int dayofWeek)
     {
         int gapofDate = dayofWeek - LocalDate.now().getDayOfWeek().getValue();
-        LocalDate tempDate = LocalDate.now().plusDays(gapofDate);
-        ResetScreen(tempDate);
+        selectedDate = LocalDate.now().plusDays(gapofDate);
+        ResetScreen(selectedDate);
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        ResetScreen(LocalDate.now());
+        selectedDate = LocalDate.now();
+        ResetScreen(selectedDate);
     }
 
     //수정하거나 삭제할 수 있는 알람 목록
-    private void showAlarmListFragment() {
+    private void ShowAlarmListFragment() {
         AlarmListFragment fragment = new AlarmListFragment(alarms);
         fragment.setOnAlarmActionListener(new AlarmListFragment.OnAlarmActionListener() {
             @Override
@@ -212,24 +215,41 @@ public class AlarmSystemActivity extends AppCompatActivity {
     }
 
     private void editAlarm(AlarmForm alarm) {
-        // 알람 수정 화면으로 이동하거나 다이얼로그를 표시하여 수정합니다.
-        // 여기서는 간단히 알람 이름을 변경하는 예를 보여드립니다.
+        edittingAlarm = alarm;
 
-        // 예: 알람 이름을 "수정된 알람"으로 변경
-        alarm.name = "수정된 알람";
+        // 알람 수정 화면으로 이동
+        Intent intent = new Intent(getApplicationContext(), com.example.piltime.EditAlarmActivity.class);
 
-        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
-        // 필요에 따라 RecyclerView를 업데이트하거나 알람을 다시 설정합니다.
+        intent.putExtra("alarmName", alarm.name);
+        intent.putExtra("alarmQuantity", alarm.quantity);
+        intent.putExtra("intervalType", AlarmSystemActivity.IntervalType.toInterger(alarm.intervalType));
+
+        ArrayList<Integer> tempHours = new ArrayList<Integer>();
+        ArrayList<Integer> tempmins = new ArrayList<Integer>();
+        for (DailyAlarm dailyAlarm: alarm.dailyAlarms) {
+            tempHours.add(dailyAlarm.hour);
+            tempmins.add(dailyAlarm.minute);
+        }
+        intent.putIntegerArrayListExtra("alarmHours", tempHours);
+        intent.putIntegerArrayListExtra("alarmMins", tempmins);
+
+        intent.putIntegerArrayListExtra("alarmDaysOnWeek", alarm.daysOnWeek);
+        intent.putExtra("manualIntervalDate", alarm.manualIntervalDate);
+        if(alarm.startDate != null) {intent.putExtra("startDateString", alarm.startDate.toString());}
+        startActivityForResult(intent, 2);
     }
 
     private void deleteAlarm(AlarmForm alarm) {
-        // 알람 리스트에서 제거
+
+        AlarmUtils.cancelAlarms(this, alarm);
         alarms.remove(alarm);
 
-        // 알람을 취소하기 위한 로직을 추가해야 합니다.
-        // AlarmManager를 사용하여 설정된 알람을 취소합니다.
+        ResetScreen(selectedDate);
+    }
 
-        // 알람 리스트를 업데이트하고 화면에 반영해야 합니다.
+    public void ChangeIsTake(DailyAlarm dailyAlarm)
+    {
+
     }
 
     //화면 갱신 함수
@@ -269,7 +289,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
                 //그 이후 선택된 날짜와 첫 복용 날짜, 날짜 간격 고려해서 그 날이 복용하는 날인지 확인
                 case manual:
-                    if(selectedDate.isAfter(checkingAlarm.startDate))
+                    if(selectedDate.isAfter(checkingAlarm.startDate) || selectedDate.isEqual(checkingAlarm.startDate))
                     {
                         long daysBetween = ChronoUnit.DAYS.between(checkingAlarm.startDate, selectedDate);
                         if(daysBetween % checkingAlarm.manualIntervalDate == 0) {isOK = true;}
@@ -299,6 +319,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
                 newButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         alarms.get(alarmIndex).dailyAlarms.get(index).isTake
                                 = !alarms.get(alarmIndex).dailyAlarms.get(index).isTake;
 
@@ -315,9 +336,19 @@ public class AlarmSystemActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == 1 && resultCode == 1)
+        if(resultCode != 1) {return;}
+
+        AlarmForm alarmForm = new AlarmForm();
+        if(requestCode == 2)
         {
-            AlarmForm alarmForm = new AlarmForm();
+            alarmForm = edittingAlarm;
+            AlarmUtils.cancelAlarms(this, alarmForm);
+            edittingAlarm = null;
+        }
+
+        if (requestCode == 1 || requestCode == 2)
+        {
+
             alarmForm.dailyAlarms = new ArrayList<DailyAlarm>();
             alarmForm.name = data.getStringExtra("alarmName");
             alarmForm.quantity = data.getIntExtra("alarmQuantity", 0);
@@ -342,7 +373,10 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
 
             Log.d("AlarmSystemActivity", "completeDailyAlarm");
-            alarms.add(alarmForm);
+
+            if(requestCode == 1) { alarms.add(alarmForm); }
+
+            AlarmUtils.setAlarms(this, alarmForm);
         }
 
         super.onActivityResult(requestCode, resultCode, data);

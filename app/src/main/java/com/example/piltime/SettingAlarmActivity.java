@@ -3,7 +3,9 @@ package com.example.piltime;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -28,33 +30,34 @@ import java.util.Date;
 //해야 하는 거: 요일은 됨. 이제 날짜 혹은 매일 알람으로 모드 바꾸는 것과 UI 변경, 세팅 변경 및 설정
 public class SettingAlarmActivity extends AppCompatActivity {
 
-    private TextInputEditText nameInput;
-    private TextInputEditText quantityInput;
+    protected TextInputEditText nameInput;
+    protected TextInputEditText quantityInput;
 
-    private Button alarmButtonBasic;
-    private Button addAlarmButton;
-    private ImageButton saveButton;
-    private ImageButton exitButton;
+    protected Button alarmButtonBasic;
+    protected Button addAlarmButton;
+    protected ImageButton saveButton;
+    protected ImageButton exitButton;
 
-    private LinearLayout layoutAlarms;
-    private ArrayList<Integer> hourList;
-    private ArrayList<Integer> minuteList;
-    private String startDateString;
+    protected LinearLayout layoutAlarms;
+    protected ArrayList<Integer> hourList;
+    protected ArrayList<Integer> minuteList;
+    protected String startDateString;
 
-    private Button setDailyButton, setWeeklyButton, setManualButton;
+    protected Button setDailyButton, setWeeklyButton, setManualButton;
 
-    private CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday, checkSaturday, checkSunday;
+    protected CheckBox checkMonday, checkTuesday, checkWednesday, checkThursday, checkFriday, checkSaturday, checkSunday;
 
-    private LinearLayout weekListLayout;
-    private TextView dailyTakeText;
-    private LinearLayout manualSetLayout;
-    private TextInputEditText setDateInputText;
-    private Button setStartDateButton;
+    protected LinearLayout weekListLayout;
+    protected TextView dailyTakeText;
+    protected LinearLayout manualSetLayout;
+    protected TextInputEditText setDateInputText;
+    protected Button setStartDateButton;
 
-    private AlarmSystemActivity.IntervalType intervalType;
+    protected AlarmSystemActivity.IntervalType intervalType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.d("SettingAlarmActivity", "Activity Sart");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_alarm);
@@ -158,6 +161,32 @@ public class SettingAlarmActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //이하 연속되는 조건문은 예외처리들
+                if(nameInput.getText().toString().equals(""))
+                {
+                    Toast.makeText(SettingAlarmActivity.this, "복용할 약의 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(quantityInput.getText().toString().equals(""))
+                {
+                    Toast.makeText(SettingAlarmActivity.this, "약의 갯수를 하나 이상 입력하세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(hourList.size() != minuteList.size())
+                {
+                    Toast.makeText(SettingAlarmActivity.this, "알림이 울릴 시간대를 지우고 다시 설정해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(hourList.size() == 0)
+                {
+                    Toast.makeText(SettingAlarmActivity.this, "알림이 울릴 시간대를 하나 이상 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String notificationName = nameInput.getText().toString();
                 int quantity = Integer.parseInt(quantityInput.getText().toString());
 
@@ -175,17 +204,23 @@ public class SettingAlarmActivity extends AppCompatActivity {
                     Toast.makeText(SettingAlarmActivity.this, "적어도 하나의 요일을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (setDateInputText.getText().toString() == "" || setDateInputText.getText().toString() == "0")
+                if (setDateInputText.getText().toString().equals("") || setDateInputText.getText().toString().equals("0"))
                 {
                     if(intervalType == AlarmSystemActivity.IntervalType.manual)
                     {
-                        Toast.makeText(SettingAlarmActivity.this, "적어도 0일 이상의 날짜를 선택해야 합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingAlarmActivity.this, "적어도 1일 이상의 간격을 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else
                     {
                         setDateInputText.setText("0");
                     }
+                }
+
+                if(intervalType == AlarmSystemActivity.IntervalType.manual && startDateString==null)
+                {
+                    Toast.makeText(SettingAlarmActivity.this, "처음으로 복용하게 되는 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 // 결과를 AlarmSystemActivity로 전달
@@ -207,34 +242,34 @@ public class SettingAlarmActivity extends AppCompatActivity {
     }
 
     // 시간 설정 프래그먼트 표시
-    private void ShowTimePickerDialog() {
+    protected void ShowTimePickerDialog() {
         com.example.piltime.TimePickerFragment timePickerFragment = new com.example.piltime.TimePickerFragment();
         timePickerFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     //날짜 설정 프래그먼트 표시
-    private void ShowDatePickerDialog()
+    protected void ShowDatePickerDialog()
     {
         com.example.piltime.DatePickerFragment datePickerFragment = new com.example.piltime.DatePickerFragment();
         datePickerFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     // 알람 추가 메서드
-    public void AddAlarm(Integer hour, Integer minute) {
+    protected void AddAlarm(Integer hour, Integer minute) {
         hourList.add(hour);
         minuteList.add(minute);
         updateAlarmList();
     }
 
     //시작 날짜 설정 완료 함수
-    public void SetStartDate(Date nowStartDate)
+    protected void SetStartDate(Date nowStartDate)
     {
         startDateString = new SimpleDateFormat("yyyy-MM-dd").format(nowStartDate);
         setStartDateButton.setText(startDateString);
     }
 
     //복용 간격 방식 갱신
-    private void UpdateIntervalType(AlarmSystemActivity.IntervalType nowType)
+    protected void UpdateIntervalType(AlarmSystemActivity.IntervalType nowType)
     {
         weekListLayout.setVisibility(View.GONE);
         dailyTakeText.setVisibility(View.GONE);
@@ -248,38 +283,34 @@ public class SettingAlarmActivity extends AppCompatActivity {
         }
     }
 
-    //기존 내용 수정시 AlarmSystemActivity에서 값을 받아오는 함수
-    public void GetandSetOrigin()
-    {
-
-    }
-
     // 알람 목록 업데이트
-    private void updateAlarmList() {
+    protected void updateAlarmList() {
         layoutAlarms.removeAllViews();
+
+        ViewGroup parentLayout = findViewById(R.id.LayoutAlarms);
+        LayoutInflater inflater = LayoutInflater.from(this);
 
         for (int i = 0; i < hourList.size(); i++) {
             final int index = i;
             String time = String.format("%02d:%02d", hourList.get(i), minuteList.get(i));
 
-            TextView textView = new TextView(this);
-            textView.setText(time);
-            textView.setTextSize(18);
-            textView.setPadding(16, 16, 16, 16);
+            View view = inflater.inflate(R.layout.item_alarmtime, parentLayout, false);
 
-            // 알람 삭제를 위한 길게 클릭 리스너
-            textView.setOnLongClickListener(new View.OnLongClickListener() {
+            TextView textView = view.findViewById(R.id.textViewSettingAlarmTime);
+            textView.setText(time);
+
+            ImageButton imageButton = view.findViewById(R.id.buttonDeleteTime);
+            imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View view) {
                     // 알람 삭제
                     hourList.remove(index);
                     minuteList.remove(index);
                     updateAlarmList();
-                    return true;
                 }
             });
 
-            layoutAlarms.addView(textView);
+            layoutAlarms.addView(view);
         }
 
         // "알람 생성" 버튼을 가장 아래로 이동
