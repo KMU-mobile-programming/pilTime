@@ -7,11 +7,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.example.piltime.AlarmSystemActivity.*;
 
@@ -24,6 +31,8 @@ public class AlarmUtils {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         int alarmId = alarmForm.hashCode();
+
+        manualRequestCodesMap = new HashMap<>();
 
         // IntervalType에 따라 알람 설정
         if (alarmForm.intervalType == IntervalType.daily) {

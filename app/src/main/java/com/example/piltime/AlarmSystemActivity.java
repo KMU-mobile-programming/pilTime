@@ -88,6 +88,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
     public ArrayList<AlarmForm> alarms;
     private AlarmForm edittingAlarm;
+    private LocalDate selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,15 +182,16 @@ public class AlarmSystemActivity extends AppCompatActivity {
     public void SelectWeekofDay(int dayofWeek)
     {
         int gapofDate = dayofWeek - LocalDate.now().getDayOfWeek().getValue();
-        LocalDate tempDate = LocalDate.now().plusDays(gapofDate);
-        ResetScreen(tempDate);
+        selectedDate = LocalDate.now().plusDays(gapofDate);
+        ResetScreen(selectedDate);
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        ResetScreen(LocalDate.now());
+        selectedDate = LocalDate.now();
+        ResetScreen(selectedDate);
     }
 
     //수정하거나 삭제할 수 있는 알람 목록
@@ -242,9 +244,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
         AlarmUtils.cancelAlarms(this, alarm);
         alarms.remove(alarm);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM월 dd일");
-        LocalDate nowDate = LocalDate.parse(titleDateText.getText(), formatter);
-        ResetScreen(nowDate);
+        ResetScreen(selectedDate);
     }
 
     public void ChangeIsTake(DailyAlarm dailyAlarm)
@@ -289,7 +289,7 @@ public class AlarmSystemActivity extends AppCompatActivity {
 
                 //그 이후 선택된 날짜와 첫 복용 날짜, 날짜 간격 고려해서 그 날이 복용하는 날인지 확인
                 case manual:
-                    if(selectedDate.isAfter(checkingAlarm.startDate))
+                    if(selectedDate.isAfter(checkingAlarm.startDate) || selectedDate.isEqual(checkingAlarm.startDate))
                     {
                         long daysBetween = ChronoUnit.DAYS.between(checkingAlarm.startDate, selectedDate);
                         if(daysBetween % checkingAlarm.manualIntervalDate == 0) {isOK = true;}

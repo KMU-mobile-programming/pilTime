@@ -25,16 +25,11 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/AlarmButtonBasic"
-                android:layout_width="370dp"
-                android:layout_height="90dp"
-                android:text="Button" />
-
-            <Button
+                style="@style/BasicButtonStyle"
                 android:id="@+id/AddAlarmButton"
                 android:layout_width="369dp"
                 android:layout_height="90dp"
-                android:text="Button" />
+                android:text="알람 시간 추가" />
         </LinearLayout>
     </ScrollView>
 
@@ -99,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
+        android:privateImeOptions="defalutInputmode=korean"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
