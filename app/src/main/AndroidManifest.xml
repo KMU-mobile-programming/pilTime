@@ -38,6 +38,8 @@
             android:name=".EditAlarmActivity"
             android:exported="false" />
         <receiver android:name=".AlarmReceiver" />
+        <activity android:name=".CommunityActivity"></activity>
+        <activity android:name=".PostActivity"></activity>
     </application>
 
 </manifest>
