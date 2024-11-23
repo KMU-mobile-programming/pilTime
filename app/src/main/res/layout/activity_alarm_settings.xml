@@ -5,30 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="개 이하"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber2"
-        app:layout_constraintTop_toBottomOf="@+id/textView_count1" />
-
-    <EditText
-        android:id="@+id/editTextNumber2"
-        android:layout_width="94dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
-
     <Switch
         android:id="@+id/switch_like_alarm"
         android:layout_width="match_parent"
@@ -83,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_second_stock_alarm_period_setting" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_stock_alarm" />
 
     <Button
         android:id="@+id/button_save"
@@ -135,51 +111,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch_all_alarm" />
-
-    <TextView
-        android:id="@+id/textView_first_stock_alarm_period_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="재고 알림 기간 설정"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_stock_alarm" />
-
-    <TextView
-        android:id="@+id/textView_second_stock_alarm_period_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="2차 재고 알림 기간 설정"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_first_stock_alarm_period_setting" />
-
-    <EditText
-        android:id="@+id/editTextNumber"
-        android:layout_width="94dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_stock_alarm" />
-
-    <TextView
-        android:id="@+id/textView_count1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="개 이하"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber"
-        app:layout_constraintTop_toBottomOf="@+id/switch_stock_alarm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
