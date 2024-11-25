@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.piltime.Database.DatabaseManager;
 import com.example.piltime.Database.AppDatabaseHelper;
+import com.example.piltime.Database.DatabaseManager;
 import com.example.piltime.R;
 
 import java.util.List;
@@ -61,8 +61,9 @@ public class PostActivity extends AppCompatActivity {
             resultIntent.putExtra("postTitle", postTitle);
             resultIntent.putExtra("postContent", postContent);
 
+            // 이미지 URI가 있다면 Intent에 추가
             if (selectedImageUri != null) {
-                resultIntent.putExtra("imageUri", selectedImageUri);
+                resultIntent.putExtra("imageUri", selectedImageUri.toString());  // URI를 String으로 전달
             }
 
             setResult(RESULT_OK, resultIntent);
@@ -88,14 +89,16 @@ public class PostActivity extends AppCompatActivity {
         // 약 이름을 텍스트뷰에 설정
         textView.setText(medicineName);
         imageView.setImageResource(R.drawable.sample_product_icon);  // 샘플 아이콘 설정
+
         // 이미지 클릭 이벤트 추가
         itemView.setOnClickListener(v -> {
             // 클릭된 약의 이미지를 게시글 이미지에 올리기
-            int medicineImageResId = R.drawable.sample_product_icon;
-            postImageView.setImageResource(medicineImageResId);  // 약 이미지로 변경
+            selectedImageUri = Uri.parse("android.resource://com.example.piltime/" + R.drawable.sample_product_icon);
+            postImageView.setImageURI(selectedImageUri);  // 약 이미지로 변경
             postImageView.setVisibility(View.VISIBLE);  // 이미지를 표시
             findViewById(R.id.selectImageButton).setVisibility(View.GONE);  // 이미지 선택 버튼 숨기기
         });
+
         // 만들어진 카드 뷰를 리스트 레이아웃에 추가
         medicineListLayout.addView(itemView);
     }
@@ -110,30 +113,12 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
-            String postTitle = data.getStringExtra("postTitle");
-            String postContent = data.getStringExtra("postContent");
-
-            // 이미지 URI가 있다면
-            String imageUriString = data.getStringExtra("imageUri");
-            if (imageUriString != null) {
-                Uri imageUri = Uri.parse(imageUriString);
-                postImageView.setImageURI(imageUri);
-            } else {
-                // 리소스 ID가 있다면
-                int imageResId = data.getIntExtra("imageResId", -1);
-                if (imageResId != -1) {
-                    postImageView.setImageResource(imageResId);
-                }
-            }
-        }
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
 
-            postImageView.setImageURI(selectedImageUri);
-            postImageView.setVisibility(View.VISIBLE);
-
-            findViewById(R.id.selectImageButton).setVisibility(View.GONE);
+            postImageView.setImageURI(selectedImageUri);  // 선택한 이미지 URI 설정
+            postImageView.setVisibility(View.VISIBLE);   // 이미지를 표시
+            findViewById(R.id.selectImageButton).setVisibility(View.GONE);  // 이미지 선택 버튼 숨기기
         }
     }
 }

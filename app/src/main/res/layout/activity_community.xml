@@ -1,7 +1,7 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <!-- 메인 콘텐츠 영역 -->
@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Welcome, User" />
+            android:text="Welcome, User"
+            android:layout_marginBottom="16dp" /> <!-- 유저 정보 아래 여백 추가 -->
 
         <!-- 게시글 목록을 표시할 컨테이너 -->
         <ScrollView
@@ -29,8 +30,10 @@
                 android:id="@+id/postContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"/>
+
         </ScrollView>
+
     </LinearLayout>
 
     <!-- 오른쪽 하단에 고정된 게시물 작성 버튼 -->
@@ -42,6 +45,6 @@
         android:layout_margin="16dp"
         android:contentDescription="게시물 작성하기"
         android:src="@drawable/add_ic"
-    android:backgroundTint="#FFFFFF" />
+        android:backgroundTint="#FFFFFF" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

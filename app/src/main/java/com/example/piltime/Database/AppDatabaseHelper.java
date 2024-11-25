@@ -150,4 +150,8 @@ public class AppDatabaseHelper extends SQLiteOpenHelper implements DatabaseManag
         cursor.close();
         return medicines;
     }
+
+    public void removeMedicine(String userId, String medicine) {
+        
+    }
 }
