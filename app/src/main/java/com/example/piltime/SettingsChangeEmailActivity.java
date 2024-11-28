@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +19,7 @@ public class SettingsChangeEmailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings_change_email);
 
         // XML 요소 연결
-        Button buttonCancel = findViewById(R.id.button_cancel);
+        ImageButton buttonCancel = findViewById(R.id.button_cancel);
         EditText editTextNewEmail = findViewById(R.id.editTextTextEmailAddress);
         EditText editTextPassword = findViewById(R.id.editTextTextPassword);
         Button buttonConfirmEmail = findViewById(R.id.button_confirm_email);

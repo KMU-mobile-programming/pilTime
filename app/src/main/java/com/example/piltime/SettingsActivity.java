@@ -1,5 +1,6 @@
 package com.example.piltime;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -86,6 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 로그아웃 버튼 클릭 시 수행할 동작
+
             }
         });
 
@@ -93,8 +96,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 회원탈퇴 버튼 클릭 시 수행할 동작
+                Intent intent = new Intent(getApplicationContext(), MembershipWithdrawalActivity.class);
+                startActivity(intent);
             }
         });
-
     }
 }

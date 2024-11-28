@@ -52,17 +52,20 @@ public class AlarmSettingsActivity extends AppCompatActivity {
                 switchStockAlarm.setChecked(false);
                 switchCommunityAlarm.setChecked(false);
                 savePreference(KEY_ALL_ALARM, false);
+                savePreference(KEY_COMMUNITY_ALARM, false);
             }
             else {
                 switchStockAlarm.setChecked(true);
                 switchCommunityAlarm.setChecked(true);
+                savePreference(KEY_ALL_ALARM, true);
+                savePreference(KEY_COMMUNITY_ALARM, true);
             }
             switchStockAlarm.setEnabled(isChecked);
             switchCommentAlarm.setEnabled(isChecked);
             switchCommentAlarm2.setEnabled(isChecked);
             switchLikeAlarm.setEnabled(isChecked);
             switchCommunityAlarm.setEnabled(isChecked);
-            savePreference(KEY_ALL_ALARM, isChecked);
+
             Toast.makeText(this, isChecked ? "전체 알림 ON" : "전체 알림 OFF", Toast.LENGTH_SHORT).show();
         });
 
@@ -73,12 +76,19 @@ public class AlarmSettingsActivity extends AppCompatActivity {
                 switchCommentAlarm.setChecked(false);
                 switchCommentAlarm2.setChecked(false);
                 switchLikeAlarm.setChecked(false);
+                savePreference(KEY_COMMUNITY_ALARM, false);
                 savePreference(KEY_COMMENT_ALARM, false);
                 savePreference(KEY_COMMENT_ALARM2, false);
                 savePreference(KEY_LIKE_ALARM, false);
                 Toast.makeText(this, "커뮤니티 알림 OFF: 관련 알림이 모두 비활성화되었습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                savePreference(KEY_COMMUNITY_ALARM, isChecked);
+                switchCommentAlarm.setChecked(true);
+                switchCommentAlarm2.setChecked(true);
+                switchLikeAlarm.setChecked(true);
+                savePreference(KEY_COMMUNITY_ALARM, true);
+                savePreference(KEY_COMMENT_ALARM, true);
+                savePreference(KEY_COMMENT_ALARM2, true);
+                savePreference(KEY_LIKE_ALARM, true);
                 Toast.makeText(this, "커뮤니티 알림 ON", Toast.LENGTH_SHORT).show();
             }
         });

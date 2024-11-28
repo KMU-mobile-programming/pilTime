@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class SettingsChangePasswordActivity extends AppCompatActivity {
         EditText editTextCheckNewPassword = findViewById(R.id.editTextTextPassword_check_new_password);
         EditText editTextCurrentPassword = findViewById(R.id.editTextTextPassword_current_password);
         Button buttonConfirmPassword = findViewById(R.id.button_confirm_password);
-        Button buttonCancel = findViewById(R.id.button_save);
+        ImageButton buttonCancel = findViewById(R.id.button_cancel);
 
         // 비밀번호 변경 버튼 동작 설정
         buttonConfirmPassword.setOnClickListener(new View.OnClickListener() {

@@ -30,6 +30,9 @@
         <activity
             android:name=".SettingsChangeEmailActivity"
             android:exported="false"/>
+        <activity
+            android:name=".MembershipWithdrawalActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
