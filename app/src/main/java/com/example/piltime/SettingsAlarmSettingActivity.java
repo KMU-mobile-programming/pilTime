@@ -49,7 +49,7 @@ public class SettingsAlarmSettingActivity extends AppCompatActivity {
         switchCommunityAlarm.setChecked(preferences.getBoolean(KEY_COMMUNITY_ALARM, true));
 
         // 실제 알람 ON/OFF 기능 개발중
-        // AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         // 전체 알림 ON/OFF 스위치 동작
         switchAllAlarm.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -60,10 +60,10 @@ public class SettingsAlarmSettingActivity extends AppCompatActivity {
                 savePreference(KEY_ALL_ALARM, false);
                 savePreference(KEY_COMMUNITY_ALARM, false);
                 // 실제 알람 ON/OFF 기능 개발중
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                     alarmManager.cancelAll();
                 }
-                 */
+
             }
             else {
                 switchStockAlarm.setChecked(true);
