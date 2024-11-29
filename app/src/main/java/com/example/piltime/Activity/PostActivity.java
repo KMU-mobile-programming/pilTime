@@ -1,6 +1,8 @@
 package com.example.piltime.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,7 +20,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.piltime.Database.AppDatabaseHelper;
-import com.example.piltime.Database.DatabaseManager;
 import com.example.piltime.R;
 
 import java.util.List;
@@ -31,7 +32,6 @@ public class PostActivity extends AppCompatActivity {
     private Uri selectedImageUri;
     private LinearLayout medicineListLayout;
 
-    private DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class PostActivity extends AppCompatActivity {
         imageContainer = findViewById(R.id.imageContainer);
         medicineListLayout = findViewById(R.id.medicineListLayout);
 
-        // DatabaseManager 초기화
-        databaseManager = new AppDatabaseHelper(this);
+        // AppDatabaseHelper 초기화
+        AppDatabaseHelper databaseHelper = new AppDatabaseHelper(this);
 
         // 갤러리 열기 설정
         imageContainer.setOnClickListener(v -> openGallery());
@@ -70,13 +70,19 @@ public class PostActivity extends AppCompatActivity {
             finish();
         });
 
-        // 데이터베이스에서 복용약 목록 가져오기 (전체 약물)
-        List<String> medicineNames = databaseManager.getAllMedicines();
+        // 사용자 ID를 SharedPreferences에서 가져오기
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
+
+        // 데이터베이스에서 복용약 목록 가져오기 (특정 사용자 약물)
+        List<String> medicineNames = databaseHelper.getMedicinesByUserId(userId);
         for (String medicineName : medicineNames) {
             Log.d("PostActivity", "Loaded medicine: " + medicineName);
-            addMedicineItem(medicineName);  // 복용약 카드 아이템 추가
+            addMedicineItem(medicineName);
         }
     }
+
+
 
     // 복용약 아이템을 카드 형태로 추가하는 메서드
     private void addMedicineItem(String medicineName) {

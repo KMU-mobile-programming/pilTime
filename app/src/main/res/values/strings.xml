@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">pilTime</string>
+    <string name="editId_hint">Enter your ID</string>
+    <string name="editPass_hint">Enter your password</string>
+    <string name="editNick_hint">Enter your nickname</string>
+    <string name="editPhone_hint">Enter your phone number</string>
 </resources>

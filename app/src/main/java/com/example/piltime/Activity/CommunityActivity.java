@@ -1,6 +1,8 @@
 package com.example.piltime.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.medtime.UserDBHelper;
 import com.example.piltime.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -52,21 +55,21 @@ public class CommunityActivity extends AppCompatActivity {
             startActivityForResult(postIntent, POST_REQUEST_CODE);
         });
 
-        // 유저 이름을 표시할 TextView 찾기
-        userNameTextView = findViewById(R.id.userNameTextView);
+        // SharedPreferences에서 userId 가져오기
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "guest"); // 기본값을 "guest"로 설정
 
-        // MainActivity에서 전달된 Intent 데이터 받기
-        Intent intent = getIntent();
+        // 데이터베이스에서 유저 ID를 직접 조회하여 사용자 이름 가져오기
+        UserDBHelper dbHelper = new UserDBHelper(this);
+        String userName = dbHelper.getNickById(userId);
 
-        // userName이 전달되지 않았으면 기본값 "Guest" 설정
-        userName = intent.getStringExtra("userName");
-        if (userName == null || userName.isEmpty()) {
+        // 사용자 이름이 null이거나 비어있으면 기본값 설정
+        if (userName == "guest" || userName.isEmpty()) {
             userName = "Welcome, Guest";  // 기본값 설정
         }
 
-        userId = intent.getStringExtra("userId");      // 전달된 userId 받기
-
-        // 유저 이름을 TextView에 설정
+        // userNameTextView에 설정
+        TextView userNameTextView = findViewById(R.id.userNameTextView);
         userNameTextView.setText(userName);
     }
 

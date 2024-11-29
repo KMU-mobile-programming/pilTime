@@ -1,0 +1,51 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp">
+
+    <!-- 커뮤니티로 이동하는 버튼 -->
+    <Button
+        android:id="@+id/goToCommunityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="커뮤니티로 이동"
+        android:layout_marginTop="20dp" />
+
+    <!-- 복용약 추가 버튼 -->
+    <Button
+        android:id="@+id/addMedicineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="복용약 추가"
+        android:layout_marginTop="20dp" />
+
+    <!-- 복용약 목록 보기 버튼 -->
+    <Button
+        android:id="@+id/viewMedicinesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="복용약 목록 보기"
+        android:layout_marginTop="20dp" />
+
+    <!-- 데이터베이스 초기화 버튼 -->
+    <Button
+        android:id="@+id/clearDatabaseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="데이터베이스 초기화"
+        android:layout_marginTop="20dp" />
+
+    <!-- 복용약 목록을 표시할 LinearLayout -->
+    <LinearLayout
+        android:id="@+id/medicineListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+        <!-- 동적으로 생성될 복용약 목록이 여기에 표시됩니다. -->
+    </LinearLayout>
+
+</LinearLayout>
