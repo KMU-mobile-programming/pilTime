@@ -1,6 +1,5 @@
 package com.example.piltime;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -79,7 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 알림 설정 버튼 클릭 시 수행할 동작
-                Intent intent = new Intent(getApplicationContext(), AlarmSettingsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingsAlarmSettingActivity.class);
                 startActivity(intent);
             }
         });
