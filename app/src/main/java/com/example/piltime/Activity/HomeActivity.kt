@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.piltime.Activity.AlarmSystemActivity
 import com.example.piltime.Activity.CommunityActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -32,6 +33,17 @@ class HomeActivity : AppCompatActivity() {
         val historyButton = findViewById<Button>(R.id.historyButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
         val communityButton = findViewById<Button>(R.id.communityButton) // 커뮤니티 버튼 초기화
+        val alarmButton = findViewById<Button>(R.id.alarmButton)
+
+        // 알람 관리 버튼 클릭 리스너
+        alarmButton.setOnClickListener {
+            // TODO: 알람 관리 화면으로 이동
+            Toast.makeText(this, "알람 관리 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
+            // 알람 관리 화면으로 이동하는 Intent 추가
+            val intent = Intent(this, AlarmSystemActivity::class.java)
+            startActivity(intent)
+
+        }
 
         // 약 관리 버튼
         medicineButton.setOnClickListener {

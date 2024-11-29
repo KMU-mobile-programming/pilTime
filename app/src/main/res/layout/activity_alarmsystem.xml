@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3D1A5"
+    tools:context=".Activity.AlarmSystemActivity">
+
+    <Button
+        style="@style/BasicButtonStyle"
+        android:id="@+id/Create_Button"
+        android:layout_width="138dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="36dp"
+        android:text="Create"
+        android:drawableEnd="@drawable/plus_sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        style="@style/BasicButtonStyle"
+        android:id="@+id/Fix_Button"
+        android:layout_width="138dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="36dp"
+        android:text="Fix"
+        android:drawableEnd="@drawable/plus_sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/ShowTimeScroll"
+        android:layout_width="390dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="184dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ShowTimeScrollLayout">
+
+            <Button
+                style="@style/BasicButtonStyle"
+                android:id="@+id/ShowAlarmButtonBasic"
+                android:layout_width="370dp"
+                android:layout_height="90dp"
+                android:text="Button" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="385dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="520dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/MondayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="월" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/TuesdayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="화" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/WednesdayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="수" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/ThursdayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="목" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/FridayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="금" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/SaturdayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="토" />
+
+        <Button
+            style="@style/BasicButtonStyle"
+            android:id="@+id/SundayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="일" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TitleDateText"
+        android:layout_width="224dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="148dp"
+        android:text="0월 00일의 복용"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="224dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="484dp"
+        android:text="이번 주 복용"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

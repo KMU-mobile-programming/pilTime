@@ -29,6 +29,17 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/alarmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알람 관리"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:enabled="true"
+                android:alpha="1.0" />
+
+
+            <Button
                 android:id="@+id/communityButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
