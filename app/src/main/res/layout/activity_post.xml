@@ -1,29 +1,103 @@
-<!-- activity_post.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
+    <!-- 이미지 선택 및 표시 -->
+    <FrameLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="@drawable/image_placeholder"
+        android:padding="8dp">
+
+        <!-- 선택된 이미지 표시 -->
+        <ImageView
+            android:id="@+id/postImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <!-- 이미지 선택 버튼 -->
+        <ImageButton
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/q"
+            android:contentDescription="이미지 선택 버튼" />
+    </FrameLayout>
+
+    <!-- 제목 입력 -->
     <EditText
         android:id="@+id/postTitleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="제목을 입력하세요" />
+        android:hint="제목을 입력하세요"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp" />
 
+    <!-- 내용 입력 -->
+
+    <!-- 복용약 리스트 헤더 -->
     <EditText
         android:id="@+id/postContentEditText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="33dp"
+        android:textColor="@android:color/black"
         android:layout_weight="1"
-        android:hint="내용을 입력하세요"
-        android:gravity="top"
-        android:inputType="textMultiLine" />
+        android:background="@drawable/edittext_background"
+        android:gravity="top|start"
+        android:hint="내용을 작성하세요"
+        android:inputType="textMultiLine"
+        android:padding="12dp" />
 
+    <TextView
+        android:id="@+id/medicineListHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="내 복용약 리스트"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <!-- HorizontalScrollView로 감싸서 복용약 리스트를 가로 스크롤 가능하게 만듦 -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <LinearLayout
+            android:id="@+id/medicineListLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- 복용약 아이템들이 동적으로 추가될 부분 -->
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <!-- 작성 버튼 -->
     <Button
         android:id="@+id/submitPostButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="게시글 작성" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="작성하기"
+        android:textColor="@android:color/white"
+        android:textColorLink="#F07070" />
+
 </LinearLayout>
