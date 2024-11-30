@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piltime.Activity.AlarmSystemActivity
 import com.example.piltime.Activity.CommunityActivity
+import com.example.piltime.Activity.SettingsActivity // 설정 액티비티 가져오기
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
         val logoutButton = findViewById<Button>(R.id.logoutButton)
         val communityButton = findViewById<Button>(R.id.communityButton) // 커뮤니티 버튼 초기화
         val alarmButton = findViewById<Button>(R.id.alarmButton)
+        val settingsButton = findViewById<Button>(R.id.settingsButton) // 설정 버튼 초기화
 
         // 알람 관리 버튼 클릭 리스너
         alarmButton.setOnClickListener {
@@ -43,6 +45,12 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, AlarmSystemActivity::class.java)
             startActivity(intent)
 
+        }
+
+        settingsButton.setOnClickListener {
+            // 설정 화면으로 이동
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
 
         // 약 관리 버튼

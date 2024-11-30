@@ -24,7 +24,7 @@ import com.example.piltime.R;
 
 import java.util.List;
 
-public class PostActivity extends AppCompatActivity {
+public class CommunityPostActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_PICK = 1;
     private ImageView postImageView;

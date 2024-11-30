@@ -15,7 +15,7 @@ import com.example.piltime.R;
 
 import java.util.ArrayList;
 
-public class CommentActivity extends AppCompatActivity {
+public class CommunityCommentActivity extends AppCompatActivity {
 
     private ArrayList<String> commentList;
     private CommentAdapter commentAdapter;
@@ -55,9 +55,9 @@ public class CommentActivity extends AppCompatActivity {
                 commentList.add(comment);
                 commentAdapter.notifyDataSetChanged();  // 리스트 갱신
                 commentEditText.setText("");  // 입력란 초기화
-                Toast.makeText(CommentActivity.this, "댓글이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommunityCommentActivity.this, "댓글이 등록되었습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(CommentActivity.this, "댓글을 입력하세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommunityCommentActivity.this, "댓글을 입력하세요.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -51,7 +51,7 @@ public class CommunityActivity extends AppCompatActivity {
 
         // 게시글 작성 화면으로 이동
         postButton.setOnClickListener(v -> {
-            Intent postIntent = new Intent(CommunityActivity.this, PostActivity.class);
+            Intent postIntent = new Intent(CommunityActivity.this, CommunityPostActivity.class);
             startActivityForResult(postIntent, POST_REQUEST_CODE);
         });
 

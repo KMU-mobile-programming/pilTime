@@ -24,23 +24,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- 홈 화면 -->
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
-        <activity android:name=".Activity.CommentActivity"></activity>
+        <!-- 커뮤니티 -->
+        <activity android:name=".Activity.CommunityCommentActivity"></activity>
         <activity android:name=".Activity.CommunityActivity"></activity>
-        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".Activity.CommunityPostActivity"></activity>
         <activity android:name=".Activity.CommentAdapter"></activity>
 
-        <!-- 알람 액티비티 -->
-        <activity android:name=".Activity.AlarmSettingsActivity"></activity>
+        <!-- 알람 -->
+        <activity android:name=".Activity.Set_"></activity>
         <activity android:name=".Activity.SettingAlarmActivity"></activity>
         <activity android:name=".Activity.AlarmSystemActivity"></activity>
         <activity android:name=".Activity.EditAlarmActivity"></activity>
+
+        <!-- 설정 -->
+        <activity
+            android:name=".Activity.SettingsAlarmSettingActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.SettingsChangePasswordActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.SettingsChangeEmailActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.MembershipWithdrawalActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.SettingsActivity"
+            android:exported="false"/>
+
+        <!-- 마이페이지 -->
+
+
     </application>
 
 </manifest>
