@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piltime.Activity.AlarmSystemActivity
 import com.example.piltime.Activity.CommunityActivity
+import com.example.piltime.Activity.ProfileActivity
 import com.example.piltime.Activity.SettingsActivity // 설정 액티비티 가져오기
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
         val isGuest = intent.getBooleanExtra("IS_GUEST", false)
 
         // 환영 메시지 설정
+
         val welcomeTextView = findViewById<TextView>(R.id.welcomeText)
         val welcomeMessage = if (isGuest) {
             "게스트로 접속하셨습니다\n일부 기능이 제한됩니다"
@@ -28,69 +31,41 @@ class HomeActivity : AppCompatActivity() {
         }
         welcomeTextView.text = welcomeMessage
 
-        // 버튼 초기화
-        val medicineButton = findViewById<Button>(R.id.medicineButton)
-        val scheduleButton = findViewById<Button>(R.id.scheduleButton)
-        val historyButton = findViewById<Button>(R.id.historyButton)
         val logoutButton = findViewById<Button>(R.id.logoutButton)
-        val communityButton = findViewById<Button>(R.id.communityButton) // 커뮤니티 버튼 초기화
-        val alarmButton = findViewById<Button>(R.id.alarmButton)
-        val settingsButton = findViewById<Button>(R.id.settingsButton) // 설정 버튼 초기화
+        val settingsButton = findViewById<Button>(R.id.settingsButton) // 설정 버튼 초기
+        val btnHome = findViewById<Button>(R.id.btnHome)
+        val btnCommunity = findViewById<Button>(R.id.btnCommunity)
+        val btnProfile = findViewById<Button>(R.id.btnProfile)
+        val btnAlarmSettings = findViewById<Button>(R.id.btnAlarmSettings)
 
-        // 알람 관리 버튼 클릭 리스너
-        alarmButton.setOnClickListener {
-            // TODO: 알람 관리 화면으로 이동
-            Toast.makeText(this, "알람 관리 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
-            // 알람 관리 화면으로 이동하는 Intent 추가
-            val intent = Intent(this, AlarmSystemActivity::class.java)
-            startActivity(intent)
-
+        // 홈 버튼 (현재 화면이므로 클릭 시 토스트 메시지)
+        btnHome.setOnClickListener {
+            Toast.makeText(this, "현재 홈 화면입니다.", Toast.LENGTH_SHORT).show()
         }
 
+        // 커뮤니티 버튼
+        btnCommunity.setOnClickListener {
+            val intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 프로필 버튼
+        btnProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 알람 설정 버튼
+        btnAlarmSettings.setOnClickListener {
+            val intent = Intent(this, AlarmSystemActivity::class.java)
+            startActivity(intent)
+        }
         settingsButton.setOnClickListener {
             // 설정 화면으로 이동
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
-        // 약 관리 버튼
-        medicineButton.setOnClickListener {
-            if (isGuest) {
-                showGuestLimitMessage()
-            } else {
-                // TODO: 약 관리 화면으로 이동
-                Toast.makeText(this, "약 관리 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // 일정 관리 버튼
-        scheduleButton.setOnClickListener {
-            if (isGuest) {
-                showGuestLimitMessage()
-            } else {
-                // TODO: 일정 관리 화면으로 이동
-                Toast.makeText(this, "일정 관리 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // 복용 기록 버튼
-        historyButton.setOnClickListener {
-            if (isGuest) {
-                showGuestLimitMessage()
-            } else {
-                // TODO: 복용 기록 화면으로 이동
-                Toast.makeText(this, "복용 기록 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // 커뮤니티 버튼 클릭 리스너
-        communityButton.setOnClickListener {
-                // TODO: 커뮤니티 화면으로 이동
-                Toast.makeText(this, "커뮤니티 화면으로 이동합니다.", Toast.LENGTH_SHORT).show()
-                // Intent로 커뮤니티 화면으로 이동하는 코드 추가
-                val intent = Intent(this, CommunityActivity::class.java)
-                startActivity(intent)
-        }
 
         // 로그아웃 버튼
         logoutButton.setOnClickListener {
@@ -100,10 +75,7 @@ class HomeActivity : AppCompatActivity() {
 
         // 게스트 사용자일 경우 버튼 스타일 변경
         if (isGuest) {
-            medicineButton.alpha = 0.5f
-            scheduleButton.alpha = 0.5f
-            historyButton.alpha = 0.5f
-            communityButton.alpha = 0.5f // 커뮤니티 버튼도 비활성화
+
         }
     }
 

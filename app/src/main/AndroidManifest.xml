@@ -61,7 +61,8 @@
             android:exported="false"/>
 
         <!-- 마이페이지 -->
-
+        <activity android:name=".Activity.ProfileActivity"/>
+        <activity android:name=".Activity.ProfileSettingsActivity"/>
 
     </application>
 
