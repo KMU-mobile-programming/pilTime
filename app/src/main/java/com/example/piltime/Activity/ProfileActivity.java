@@ -23,10 +23,10 @@ public class ProfileActivity extends AppCompatActivity {
     int profilepic = R.drawable.ic_launcher_foreground;
 
     String[] mypills = new String[] {
-            "암페타민",
-            "프로포폴",
-            "모르핀",
-            "코카인"
+            "비타민 C",
+            "락토핏",
+            "콜데원",
+            "아르기닌"
     };
     int[] mypillimgs = new int[] {
             R.drawable.rounded_984f4f,
@@ -36,11 +36,11 @@ public class ProfileActivity extends AppCompatActivity {
     };
 
     String[] myposttitles = new String[] {
-            "우하하하",
-            "간장공장공자앚앚아장장장장자앚앚아",
-            "무슨 마약하시길래 이런 생각을 했어요?",
-            "우히히히",
-            "즐" };
+            "처방약 2번 안먹었는데 괜찮은가요?",
+            "피부 영양 공급에 좋은 영양제",
+            "혈압약 1회 복용 빠뜨렸을 때 대처법",
+            "감기약 복용 중 프로폴리스 같이 먹어도 될까요",
+            "빈혈 개선에 효과적인 영양제 조합" };
     boolean[] mypostbest = new boolean[] {
             true, true, false, true, false
     };
@@ -49,11 +49,11 @@ public class ProfileActivity extends AppCompatActivity {
     };
 
     String[] mybmarktitles = new String[] {
-            "크핫핫핫",
-            "간장공장공장장은 강공장장장장장",
-            "무슨 마약하시길래 이런 생각을 했어요?",
-            "우히히히",
-            "즐" };
+            "머리카락 영양 공급을 위한 비오틴 선택 가이드",
+            "비타민C 고용량, 매일 복용해도 괜찮을까?",
+            "처방받은 약, 빈속에 먹어도 괜찮을까?",
+            "눈 건강을 위한 비타민, 어떤 걸 고를까요",
+            "장 건강 개선에 도움 되는 프로바이오틱스, 어떻게 먹어야 할까?" };
     boolean[] mybmarkbest = new boolean[] {
             false, false, false, true, false
     };
