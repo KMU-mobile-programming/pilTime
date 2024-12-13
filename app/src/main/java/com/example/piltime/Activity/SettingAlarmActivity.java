@@ -19,7 +19,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.piltime.Database.DataBase;
 import com.example.piltime.R;
+import com.example.piltime.model.Medicine;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +64,10 @@ public class SettingAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting_alarm);
         Log.d("SettingAlarmActivity", "after setcontentview");
         EdgeToEdge.enable(this);
+
+        Intent intent = getIntent();
+        String user_id = intent.getStringExtra("userId");
+        boolean isGuest = intent.getBooleanExtra("isGuest", false);
 
         // findViewById를 통해 뷰를 찾습니다.
         View mainView = findViewById(R.id.main);
@@ -157,31 +163,28 @@ public class SettingAlarmActivity extends AppCompatActivity {
         });
 
         //알람 최종 저장 버튼 액션
+        // 알람 최종 저장 버튼 액션
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //이하 연속되는 조건문은 예외처리들
-                if(nameInput.getText().toString().equals(""))
-                {
+                // 이하 연속되는 조건문은 예외처리들
+                if(nameInput.getText().toString().equals("")) {
                     Toast.makeText(SettingAlarmActivity.this, "복용할 약의 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(quantityInput.getText().toString().equals(""))
-                {
+                if(quantityInput.getText().toString().equals("")) {
                     Toast.makeText(SettingAlarmActivity.this, "약의 갯수를 하나 이상 입력하세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(hourList.size() != minuteList.size())
-                {
+                if(hourList.size() != minuteList.size()) {
                     Toast.makeText(SettingAlarmActivity.this, "알림이 울릴 시간대를 지우고 다시 설정해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(hourList.size() == 0)
-                {
+                if(hourList.size() == 0) {
                     Toast.makeText(SettingAlarmActivity.this, "알림이 울릴 시간대를 하나 이상 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -203,24 +206,36 @@ public class SettingAlarmActivity extends AppCompatActivity {
                     Toast.makeText(SettingAlarmActivity.this, "적어도 하나의 요일을 선택해야 합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (setDateInputText.getText().toString().equals("") || setDateInputText.getText().toString().equals("0"))
-                {
-                    if(intervalType == AlarmSystemActivity.IntervalType.manual)
-                    {
+                if (setDateInputText.getText().toString().equals("") || setDateInputText.getText().toString().equals("0")) {
+                    if(intervalType == AlarmSystemActivity.IntervalType.manual) {
                         Toast.makeText(SettingAlarmActivity.this, "적어도 1일 이상의 간격을 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                         return;
-                    }
-                    else
-                    {
+                    } else {
                         setDateInputText.setText("0");
                     }
                 }
 
-                if(intervalType == AlarmSystemActivity.IntervalType.manual && startDateString==null)
-                {
+                if(intervalType == AlarmSystemActivity.IntervalType.manual && startDateString == null) {
                     Toast.makeText(SettingAlarmActivity.this, "처음으로 복용하게 되는 날짜를 선택해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Medicine 객체 생성
+                Medicine medicine = new Medicine(
+                        user_id,             // 유저 Id
+                        notificationName,    // 약 이름
+                        quantity,            // 복용량
+                        "영양제",                // 약의 종류 (영양제/처방약)
+                        0.0,           // 복용율 (0.0 ~ 1.0)
+                        startDateString,     // 복용 시작 날짜
+                        hourList,            // 알림 시간 리스트 (시)
+                        minuteList,          // 알림 시간 리스트 (분)
+                        selectedDays         // 알림 요일 리스트
+                );
+
+                // DBHelper 객체를 사용하여 약 정보를 DB에 저장
+                DataBase dbHelper = new DataBase(SettingAlarmActivity.this);
+                dbHelper.addMedicine(medicine);
 
                 // 결과를 AlarmSystemActivity로 전달
                 Intent resultIntent = new Intent();
@@ -238,6 +253,7 @@ public class SettingAlarmActivity extends AppCompatActivity {
                 finish(); // SecondActivity 종료
             }
         });
+
     }
 
     // 시간 설정 프래그먼트 표시

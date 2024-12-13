@@ -94,6 +94,10 @@ public class AlarmSystemActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent intent = getIntent();
+        String user_id = intent.getStringExtra("userId");
+        boolean isGuest = intent.getBooleanExtra("isGuest", false);
+
         titleDateText = findViewById(R.id.TitleDateText);
         createButton = (Button) findViewById(R.id.Create_Button);
         fixButton = findViewById(R.id.Fix_Button);
@@ -116,6 +120,8 @@ public class AlarmSystemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //이제 여기에 넘어가는 생성하러 넘어가는 버튼 필요
                 Intent intent = new Intent(getApplicationContext(), com.example.piltime.Activity.SettingAlarmActivity.class);
+                intent.putExtra("userId", user_id); // userId 전달
+                intent.putExtra("isGuest", isGuest); // isGuest 여부 전달
                 intent.putExtra("requestCode", 1);
                 startActivityForResult(intent, 1);
             }

@@ -10,7 +10,7 @@
 
     <ScrollView
         android:id="@+id/TimeSettingScroll"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="222dp"
         android:layout_marginTop="508dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +115,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginTop="340dp"
         android:orientation="horizontal"
@@ -151,7 +151,7 @@
 
     <LinearLayout
         android:id="@+id/WeekListLayout"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginTop="392dp"
         android:orientation="horizontal"
@@ -235,7 +235,7 @@
 
     <TextView
         android:id="@+id/DailyTakeText"
-        android:layout_width="166dp"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_marginTop="400dp"
         android:text="이 약은 매일 복용합니다."
