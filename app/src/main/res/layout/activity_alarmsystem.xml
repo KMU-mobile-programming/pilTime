@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="0월 00일의 복용"
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         app:layout_constraintWidth_percent="0.7"
@@ -143,7 +143,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="월" />
+                    android:text="월"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
 
             <!-- 다른 요일 버튼들도 동일한 패턴으로 추가 -->
@@ -158,7 +163,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="화" />
+                    android:text="화"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -172,7 +182,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="수" />
+                    android:text="수"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -185,7 +200,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="목" />
+                    android:text="목"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -199,7 +219,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="금" />
+                    android:text="금"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -213,7 +238,12 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="토" />
+                    android:text="토"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -227,12 +257,13 @@
                     style="@style/BasicButtonStyle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:text="일" />
+                    android:text="일"
+                    android:background="@android:color/transparent"
+                    android:textSize="24dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:fontFamily="sans-serif-medium"
+                    android:textStyle="bold"/>
             </androidx.cardview.widget.CardView>
-
-
-
-            <!-- 화, 수, 목, 금, 토, 일 버튼 추가 -->
         </LinearLayout>
     </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
