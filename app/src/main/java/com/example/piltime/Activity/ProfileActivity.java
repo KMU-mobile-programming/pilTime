@@ -93,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProfileSettingsActivity.class);
+                intent.putExtra("userId", userId); // 유저 ID를 추가
                 startActivity(intent);
             }
         });

@@ -499,6 +499,30 @@ class DataBase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return postTitles // 결과 반환
     }
 
+    fun updateNickById(userId: String, newNick: String) {
+        val db = this.writableDatabase
+        try {
+            Log.d("DataBase", "Updating nickname for userId: $userId to $newNick")
+            val contentValues = ContentValues().apply {
+                put("nick", newNick) // 'nick' 열에 새로운 닉네임을 설정
+            }
+
+            // 사용자 ID에 해당하는 행 업데이트
+            val rowsAffected = db.update(USERS_TABLE, contentValues, "id = ?", arrayOf(userId))
+
+            if (rowsAffected > 0) {
+                Log.d("DataBase", "Nickname updated successfully for userId: $userId")
+            } else {
+                Log.d("DataBase", "No rows updated for userId: $userId")
+            }
+        } catch (e: Exception) {
+            Log.e("DataBase", "Error updating nickname for userId: $userId", e)
+        } finally {
+            db.close() // 데이터베이스 연결 종료
+        }
+    }
+
+
 
     companion object {
         const val DATABASE_NAME = "medtime.db"
