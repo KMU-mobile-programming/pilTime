@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
         }
         welcomeTextView.text = welcomeMessage
 
-        val logoutButton = findViewById<Button>(R.id.logoutButton)
+        //val logoutButton = findViewById<Button>(R.id.logoutButton)
         val settingsButton = findViewById<Button>(R.id.settingsButton) // 설정 버튼 초기
         val btnHome = findViewById<Button>(R.id.btnHome)
         val btnCommunity = findViewById<Button>(R.id.btnCommunity)
@@ -84,20 +84,6 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("userId", userId) // userId 전달
             intent.putExtra("isGuest", isGuest) // isGuest 여부 전달
             startActivity(intent)
-        }
-
-
-        // 로그아웃 버튼
-        logoutButton.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.clear()  // 모든 로그인 정보 삭제
-            editor.apply()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            Toast.makeText(this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
-            finish() // MainActivity로 돌아가기
         }
 
         // 게스트 사용자일 경우 버튼 스타일 변경
