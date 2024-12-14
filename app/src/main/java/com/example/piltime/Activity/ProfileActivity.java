@@ -142,6 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout myPosts = (LinearLayout) findViewById(R.id.myPosts);
         for (int i = 0; i < myposttitles.size(); i++) {
             LinearLayout newPost = new LinearLayout(this);
+            newPost.setPadding( 16, 8, 16, 8);
             newPost.setOrientation(LinearLayout.HORIZONTAL);
             newPost.setBackground(getDrawable(R.drawable.rounded_984f4f));
             newPost.setLayoutParams(postParams);
@@ -174,6 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout myBmarks = (LinearLayout) findViewById(R.id.myBmarks);
         for (int i = 0; i < mybmarkbest.length; i++) {
             LinearLayout newPost = new LinearLayout(this);
+            newPost.setPadding( 16, 8, 16, 8);
             newPost.setOrientation(LinearLayout.HORIZONTAL);
             newPost.setBackground(getDrawable(R.drawable.rounded_984f4f));
             newPost.setLayoutParams(postParams);
