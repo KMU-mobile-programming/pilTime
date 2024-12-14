@@ -37,6 +37,7 @@ public class CommunityPostActivity extends AppCompatActivity {
     private String userName;
     private boolean isEditing = false;
     private int postPosition = -1;
+    private int editPosition = -1;
     private String existingImagePath;
 
     @Override
@@ -79,9 +80,9 @@ public class CommunityPostActivity extends AppCompatActivity {
         isEditing = intent.getBooleanExtra("isEditing", false);
 
         if (isEditing) {
-            postPosition = intent.getIntExtra("postPosition", -1);
+            editPosition = intent.getIntExtra("postPosition", -1);
             // postId 추가
-            Log.d("CommunityPostActivity", "Editing Post ID: " + postPosition); // 디버깅 로그 추가
+            Log.d("CommunityPostActivity", "Editing Post ID: " + editPosition); // 디버깅 로그 추가
 
             postTitleEditText.setText(intent.getStringExtra("postTitle"));
             postContentEditText.setText(intent.getStringExtra("postContent"));
@@ -157,26 +158,43 @@ public class CommunityPostActivity extends AppCompatActivity {
         // 이미지 저장 로직
         if (isEditing) {
             // 수정 모드일 경우 기존 이미지 경로를 사용
-            resultIntent.putExtra("postId", postPosition);
-            resultIntent.putExtra("imageUri", existingImagePath);
-            resultIntent.putExtra("postPosition", postPosition);
-            Log.d("CommunityPostActivity",postPosition + " 아이디 이거 아님?");
-        }else if (selectedImageUri != null) {
-            String imageUri = com.example.piltime.Activity.ImageSaveUtils.saveImage(this, selectedImageUri);
-            if (imageUri != null) {
-                resultIntent.putExtra("imageUri", imageUri);
+            resultIntent.putExtra("postId", editPosition);
+
+            if (selectedImageUri != null) {
+                // 수정 모드에서 새로운 이미지가 선택된 경우, 새로운 이미지 URI 사용
+                String newImageUri = com.example.piltime.Activity.ImageSaveUtils.saveImage(this, selectedImageUri);
+                if (newImageUri != null) {
+                    resultIntent.putExtra("imageUri", newImageUri); // 새로운 이미지 URI 사용
+                } else {
+                    resultIntent.putExtra("imageUri", existingImagePath != null ? existingImagePath : "");
+                }
             } else {
-                // 이미지 저장 실패 시 기존 URI를 사용
-                Toast.makeText(this, "이미지 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                Log.e("CommunityPostActivity", "Image save failed for URI: " + selectedImageUri.toString());
-                return;
+                // 새 이미지가 선택되지 않은 경우, 기존 이미지 사용
+                resultIntent.putExtra("imageUri", existingImagePath != null ? existingImagePath : ""); // null 대신 빈 문자열 반환
+            }
+        } else {
+            // 새 게시물 작성
+            postPosition += 1;
+            resultIntent.putExtra("postId", postPosition);
+
+            if (selectedImageUri != null) {
+                String imageUri = com.example.piltime.Activity.ImageSaveUtils.saveImage(this, selectedImageUri);
+                if (imageUri != null) {
+                    resultIntent.putExtra("imageUri", imageUri);
+                } else {
+                    // 이미지 저장 실패 시 알림
+                    Toast.makeText(this, "이미지 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Log.e("CommunityPostActivity", "Image save failed for URI: " + selectedImageUri);
+                    return;
+                }
+            } else {
+                resultIntent.putExtra("imageUri", ""); // 이미지가 선택되지 않은 경우 빈 문자열 반환
             }
         }
 
         setResult(RESULT_OK, resultIntent);
         finish();
     }
-
 
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

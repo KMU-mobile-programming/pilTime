@@ -178,7 +178,7 @@ public class CommunityActivity extends AppCompatActivity {
 
                     if (updateSuccess) {
                         Toast.makeText(this, "게시글이 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                        loadPosts(); // 목록 새로고침
+                        runOnUiThread(() -> loadPosts()); // 목록 새로고침
                     } else {
                         Toast.makeText(this, "게시글 수정에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
@@ -233,7 +233,7 @@ public class CommunityActivity extends AppCompatActivity {
         postLayout.addView(userInfoLayout);
 
         // 이미지 추가
-        if (imageUriString != null) {
+        if (!"".equals(imageUriString)) {
             ImageView postImageView = new ImageView(this);
             Uri imageUri = Uri.parse(imageUriString);
             postImageView.setImageURI(imageUri);
@@ -251,7 +251,7 @@ public class CommunityActivity extends AppCompatActivity {
         titleView.setTextSize(18);
         titleView.setTextColor(Color.BLACK);
         titleView.setTypeface(null, Typeface.BOLD);
-        titleView.setPadding(16, 16, 16, 0);
+        titleView.setPadding(70, 16, 70, 0);
         postLayout.addView(titleView);
 
         // 내용 추가
@@ -259,7 +259,7 @@ public class CommunityActivity extends AppCompatActivity {
         contentView.setText(postContent);
         contentView.setTextSize(14);
         contentView.setTextColor(Color.GRAY);
-        contentView.setPadding(16, 8, 16, 16);
+        contentView.setPadding(70, 8, 70, 16);
         postLayout.addView(contentView);
 
         // 버튼 레이아웃
