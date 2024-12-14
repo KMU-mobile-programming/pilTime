@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.piltime.Database.DataBase;
 import com.example.piltime.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -28,18 +29,9 @@ public class ProfileActivity extends AppCompatActivity {
     int profilepic = R.drawable.ic_launcher_foreground;
     List<String> mypills;
 
-    String[] myposttitles = new String[]{
-            "처방약 2번 안먹었는데 괜찮은가요?",
-            "피부 영양 공급에 좋은 영양제",
-            "혈압약 1회 복용 빠뜨렸을 때 대처법",
-            "감기약 복용 중 프로폴리스 같이 먹어도 될까요",
-            "빈혈 개선에 효과적인 영양제 조합"};
-    boolean[] mypostbest = new boolean[]{
-            true, true, false, true, false
-    };
-    int[] mypostcom = new int[]{
-            1, 69, 78, 34, 2
-    };
+    List<String> myposttitles;
+    boolean[] mypostbest;
+    int[] mypostcom;
 
     String[] mybmarktitles = new String[]{
             "머리카락 영양 공급을 위한 비오틴 선택 가이드",
@@ -76,9 +68,23 @@ public class ProfileActivity extends AppCompatActivity {
         DataBase dbHelper = new DataBase(this);
         mynickname = dbHelper.getNickById(userId);
         mypills = dbHelper.getMedicinesByUserId(userId); // 사용자 ID에 따른 약 이름을 가져옵니다.
+        myposttitles = dbHelper.getPostTitlesByUserId(userId);
+        if (myposttitles == null) {
+            myposttitles = new ArrayList<>(); // 빈 리스트로 초기화
+        }
+
+        mypostcom = new int[myposttitles.size()]; // myposttitles가 List<String>이라면 size()를 사용해야 합니다.
+        mypostbest = new boolean[myposttitles.size()];
 
 
-    // 로그 출력
+        for (int i = 0; i < mypostcom.length; i++) {
+            mypostbest[i] = true;
+            mypostcom[i] = 1; // 모든 댓글 수를 1로 설정
+        }
+
+
+
+        // 로그 출력
         Log.d("ProfileActivity", "Retrieved medicines:" + mypills);
         Log.d("DBHelper", "Fetched medicine names: " + mypills.toString());
 
@@ -134,7 +140,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         LinearLayout myPosts = (LinearLayout) findViewById(R.id.myPosts);
-        for (int i = 0; i < mypostbest.length; i++) {
+        for (int i = 0; i < myposttitles.size(); i++) {
             LinearLayout newPost = new LinearLayout(this);
             newPost.setOrientation(LinearLayout.HORIZONTAL);
             newPost.setBackground(getDrawable(R.drawable.rounded_984f4f));
@@ -147,7 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
             TextView newPostTitle = new TextView(this);
             newPostTitle.setPadding(24, 18, 0, 18);
-            newPostTitle.setText(myposttitles[i]);
+            newPostTitle.setText(myposttitles.get(i));
             newPostTitle.setTextColor(Color.WHITE);
             if (newPostTitle.getText().length() >= 16) {
                 newPostTitle.setText(newPostTitle.getText().subSequence(0, 16) + "...");

@@ -470,7 +470,34 @@ class DataBase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         db.close()
     }
 
+    fun getPostTitlesByUserId(userId: String): MutableList<String> {
+        val postTitles = mutableListOf<String>() // 결과를 담을 리스트
+        val db = readableDatabase
 
+        try {
+            // SQL 쿼리: 특정 userId에 해당하는 게시물의 제목 가져오기
+            val cursor = db.rawQuery(
+                "SELECT title FROM $POSTS_TABLE WHERE user_id = ?",
+                arrayOf(userId)
+            )
+
+            // 커서에서 데이터 읽기
+            if (cursor.moveToFirst()) {
+                do {
+                    val title = cursor.getString(0) // 첫 번째 컬럼 값 (title)
+                    postTitles.add(title) // 리스트에 추가
+                } while (cursor.moveToNext())
+            }
+
+            cursor.close() // 커서 닫기
+        } catch (e: Exception) {
+            Log.e("DatabaseError", "Error while fetching titles: ${e.message}")
+        } finally {
+            db.close() // 데이터베이스 닫기
+        }
+
+        return postTitles // 결과 반환
+    }
 
 
     companion object {
