@@ -1,6 +1,7 @@
 package com.example.piltime.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,10 +10,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.medtime.UserDBHelper;
+import com.example.piltime.MainActivity;
 import com.example.piltime.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
     private TextView textViewSettings;
     private TextView textViewAccount;
     private Button buttonCancel, buttonId, buttonPassword, buttonEmail;
@@ -35,18 +39,21 @@ public class SettingsActivity extends AppCompatActivity {
         textViewAccount = findViewById(R.id.textView_account);
         buttonId = findViewById(R.id.button_id);
         buttonPassword = findViewById(R.id.button_password);
-        buttonEmail = findViewById(R.id.button_email);
+        buttonEmail = findViewById(R.id.button_phone_number);
         textViewApplicationSettings = findViewById(R.id.textView_application_settings);
         buttonAlarmSettings = findViewById(R.id.button_alarm_settings);
         textViewEtc = findViewById(R.id.textView_etc);
         buttonLogout = findViewById(R.id.button_logout);
         buttonMembershipWithdrawal = findViewById(R.id.button_membership_withdrawal);
 
+        preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+
         // 버튼에 클릭 리스너 추가
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 뒤로 가기 버튼 클릭 시 수행할 동작 - 프로필로 돌아가기
+                // 뒤로 가기 버튼 클릭 시 수행할 동작 - 홈으로 돌아가기
+                finish();
             }
         });
 
@@ -70,7 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 이메일 변경 버튼 클릭 시 수행할 동작
-                Intent intent = new Intent(getApplicationContext(), com.example.piltime.Activity.SettingsChangeEmailActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingsChangePhoneNumberActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +95,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 로그아웃 버튼 클릭 시 수행할 동작
-
+                preferences.edit().clear().apply();
+                // 로그인 화면으로 이동
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

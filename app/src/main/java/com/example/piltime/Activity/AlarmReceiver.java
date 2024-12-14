@@ -16,6 +16,9 @@ import java.util.Objects;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
+    private static final String CHANNEL_ID = "alarm_channel"; // 채널 ID
+    private static final String TAG = "AlarmReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -88,6 +91,15 @@ public class AlarmReceiver extends BroadcastReceiver {
             Log.d("AlarmReceiver", "알림이 표시되었습니다.");
         } else {
             Log.e("AlarmReceiver", "NotificationManager가 null입니다.");
+        }
+    }
+
+    // 알림 OFF 메서드 추가
+    public static void cancelNotification(Context context, int notificationId) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.cancel(notificationId); // 알림 ID로 알림 취소
+            Log.d(TAG, "알림이 취소되었습니다. 알림 ID: " + notificationId);
         }
     }
 }

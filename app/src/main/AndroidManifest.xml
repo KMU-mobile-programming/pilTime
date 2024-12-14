@@ -51,7 +51,7 @@
             android:name=".Activity.SettingsChangePasswordActivity"
             android:exported="false"/>
         <activity
-            android:name=".Activity.SettingsChangeEmailActivity"
+            android:name=".Activity.SettingsChangePhoneNumberActivity"
             android:exported="false"/>
         <activity
             android:name=".Activity.MembershipWithdrawalActivity"

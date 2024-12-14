@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.medtime.UserDBHelper;
 import com.example.piltime.R;
 
 public class MembershipWithdrawalActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class MembershipWithdrawalActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button buttonConfirmWithdrawal;
     private ImageButton buttonCancel;
+
+    UserDBHelper DB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,15 @@ public class MembershipWithdrawalActivity extends AppCompatActivity {
         buttonConfirmWithdrawal = findViewById(R.id.button_confirm_withdrawal);
         buttonCancel = findViewById(R.id.button_cancel);
 
+        DB = new UserDBHelper(this);
+        // 사용자 ID 설정 (예: 현재 로그인한 사용자 ID)
+        String userId = getIntent().getStringExtra("USER_ID");
+        if (userId == null) {
+            userId = "Unknown";
+        }
+        String userPassword = getIntent().getStringExtra("USER_PASSWORD");
+        boolean isGuest = getIntent().getBooleanExtra("IS_GUEST", false);
+
         // 뒤로가기 버튼 동작
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,47 +54,46 @@ public class MembershipWithdrawalActivity extends AppCompatActivity {
         });
 
         // 회원탈퇴 버튼 동작
+        String finalUserId = userId;
         buttonConfirmWithdrawal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleWithdrawal();
+                // 유저 아이디와 비밀번호 - 실제로는 서버나 로컬에서 불러올 값을 가정
+                final String realUserId = finalUserId;
+                final String realPassword = userPassword;
+
+                String userId = editTextId.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
+
+                // 입력값 검증
+                if (TextUtils.isEmpty(userId)) {
+                    showToast("아이디를 입력해주세요.");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    showToast("비밀번호를 입력해주세요.");
+                    return;
+                }
+
+                if (!userId.equals(realUserId)) {
+                    showToast("아이디가 일치하지 않습니다.");
+                    return;
+                }
+
+                if(!password.equals(realPassword)) {
+                    showToast("비밀번호가 일치하지 않습니다.");
+                    return;
+                }
+
+                // 회원탈퇴 확인 대화상자 표시
+                showConfirmationDialog(userId, password);
+
             }
         });
     }
 
-    // 회원탈퇴 처리 메서드
-    private void handleWithdrawal() {
-        // 유저 아이디와 비밀번호 - 실제로는 서버나 로컬에서 불러올 값을 가정
-        final String realUserId = "qwer123";
-        final String realPassword = "password123";
 
-        String userId = editTextId.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
-
-        // 입력값 검증
-        if (TextUtils.isEmpty(userId)) {
-            showToast("아이디를 입력해주세요.");
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            showToast("비밀번호를 입력해주세요.");
-            return;
-        }
-
-        if (!userId.equals(realUserId)) {
-            showToast("아이디가 일치하지 않습니다.");
-            return;
-        }
-
-        if(!password.equals(realPassword)) {
-            showToast("비밀번호가 일치하지 않습니다.");
-            return;
-        }
-
-        // 회원탈퇴 확인 대화상자 표시
-        showConfirmationDialog(userId, password);
-    }
 
     // 회원탈퇴 확인 대화상자
     private void showConfirmationDialog(String userId, String password) {
@@ -102,11 +113,8 @@ public class MembershipWithdrawalActivity extends AppCompatActivity {
 
     // 회원탈퇴 처리 로직
     private void processWithdrawal(String userId, String password) {
-        // TODO: 서버와 통신하여 회원탈퇴 API 요청 수행
-        // 서버 응답에 따라 성공 또는 실패 메시지 표시
-        boolean isSuccessful = true; // 예제용으로 성공 가정
-
-        if (isSuccessful) {
+        if (DB.checkUserpass(userId, password)) {
+            DB.deleteUser(userId, password);
             showToast("회원탈퇴가 완료되었습니다.");
             finish(); // 회원탈퇴 완료 후 화면 종료
         } else {

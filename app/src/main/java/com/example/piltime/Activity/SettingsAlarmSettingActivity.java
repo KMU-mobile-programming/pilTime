@@ -1,7 +1,9 @@
 package com.example.piltime.Activity;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.piltime.AlarmReceiver;
 import com.example.piltime.R;
 
 public class SettingsAlarmSettingActivity extends AppCompatActivity {
@@ -25,10 +28,13 @@ public class SettingsAlarmSettingActivity extends AppCompatActivity {
     private static final String KEY_LIKE_ALARM = "like_alarm";
     private static final String KEY_COMMUNITY_ALARM = "community_alarm";
 
+    private static final int SAMPLE_NOTIFICATION_ID = 1234; // 샘플 고유 알림 ID
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_settings);
+
 
         // SharedPreferences 초기화
         preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -50,9 +56,6 @@ public class SettingsAlarmSettingActivity extends AppCompatActivity {
         switchLikeAlarm.setChecked(preferences.getBoolean(KEY_LIKE_ALARM, true));
         switchCommunityAlarm.setChecked(preferences.getBoolean(KEY_COMMUNITY_ALARM, true));
 
-        // 실제 알람 ON/OFF 기능 개발중
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
         // 전체 알림 ON/OFF 스위치 동작
         switchAllAlarm.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // 전체 알림 설정 변경 시, 다른 스위치 비활성화/활성화
@@ -61,17 +64,18 @@ public class SettingsAlarmSettingActivity extends AppCompatActivity {
                 switchCommunityAlarm.setChecked(false);
                 savePreference(KEY_ALL_ALARM, false);
                 savePreference(KEY_COMMUNITY_ALARM, false);
-                // 실제 알람 ON/OFF 기능 개발중
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                    alarmManager.cancelAll();
-                }
-
+                // 알림 OFF
+                AlarmReceiver.cancelNotification(SettingsAlarmSettingActivity.this, SAMPLE_NOTIFICATION_ID); // 알림 취소
             }
             else {
                 switchStockAlarm.setChecked(true);
                 switchCommunityAlarm.setChecked(true);
                 savePreference(KEY_ALL_ALARM, true);
                 savePreference(KEY_COMMUNITY_ALARM, true);
+                // 알림 ON
+                Intent intent = new Intent(SettingsAlarmSettingActivity.this, AlarmReceiver.class);
+                intent.putExtra("alarmName", "약 복용");
+                sendBroadcast(intent); // 알람 발생}
             }
             switchStockAlarm.setEnabled(isChecked);
             switchCommentAlarm.setEnabled(isChecked);

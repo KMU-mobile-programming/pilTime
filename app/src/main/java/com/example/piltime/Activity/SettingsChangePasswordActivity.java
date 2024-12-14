@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.medtime.UserDBHelper;
 import com.example.piltime.R;
 
 public class SettingsChangePasswordActivity extends AppCompatActivity {
@@ -32,12 +33,19 @@ public class SettingsChangePasswordActivity extends AppCompatActivity {
         Button buttonConfirmPassword = findViewById(R.id.button_confirm_password);
         ImageButton buttonCancel = findViewById(R.id.button_cancel);
 
+        UserDBHelper DB = new UserDBHelper(this);
+        // 사용자 ID 설정 (예: 현재 로그인한 사용자 ID)
+        String userId = getIntent().getStringExtra("USER_ID");
+        if (userId == null) {
+            userId = "Unknown";
+        }
+        boolean isGuest = getIntent().getBooleanExtra("IS_GUEST", false);
+
         // 비밀번호 변경 버튼 동작 설정
+        String finalUserId = userId;
         buttonConfirmPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 현재 비밀번호 - 실제로는 서버나 로컬에서 불러올 값을 가정
-                final String realCurrentPassword = "password123";
 
                 String currentPassword = editTextCurrentPassword.getText().toString().trim();
                 String newPassword = editTextNewPassword.getText().toString().trim();
@@ -70,18 +78,17 @@ public class SettingsChangePasswordActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 비밀번호 검사
-                if (newPassword.equals(realCurrentPassword)) {
-                    Toast.makeText(SettingsChangePasswordActivity.this, "사용 중인 비밀번호와 다른 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (realCurrentPassword.equals(currentPassword)) {
-                    // 비밀번호 변경 성공
-                    Toast.makeText(SettingsChangePasswordActivity.this, "비밀번호가 성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-                else {
-                    Toast.makeText(SettingsChangePasswordActivity.this, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                if (DB.checkUserpass(finalUserId, currentPassword)) {
+                    // 비밀번호 변경
+                    boolean isPasswordChanged = DB.updatePassword(finalUserId, currentPassword, newPassword);
+                    if (isPasswordChanged) {
+                        Toast.makeText(SettingsChangePasswordActivity.this, "비밀번호가 성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(SettingsChangePasswordActivity.this, "비밀번호 변경에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(SettingsChangePasswordActivity.this, "현재 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
