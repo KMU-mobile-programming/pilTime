@@ -1,14 +1,18 @@
 package com.example.piltime.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.piltime.MainActivity;
 import com.example.piltime.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -87,8 +91,22 @@ public class SettingsActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 로그아웃 버튼 클릭 시 수행할 동작
+                // SharedPreferences에서 로그인 정보 삭제
+                SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();  // 모든 로그인 정보 삭제
+                editor.apply(); // 변경사항을 적용
 
+                // MainActivity로 이동
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                // 로그아웃 알림 메시지
+                Toast.makeText(SettingsActivity.this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
+
+                // 현재 Activity 종료 (선택적)
+                finish();
             }
         });
 
