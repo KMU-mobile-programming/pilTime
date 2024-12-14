@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3D1A5"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="240dp"
+        android:layout_height="240dp">
+
+        <ImageView
+            android:id="@+id/profileSetPic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_984f4f"
+            android:clipToOutline="true"
+            android:tint="#50000000"
+            android:tintMode="src_over" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="80dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이미지 변경"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/profileSetNickB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_rounded_corners_f07070"
+                android:gravity="center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/profileSetNick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="닉네임"
+                    android:layout_weight="1"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="5"
+                    app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="성별"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/profileSetSex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/profileSetMaleB"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/profileSetMale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="남"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profileSetFemaleB"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/profileSetFemale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="여"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="생년월일"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/profileSetBirthB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounded_corners_f07070"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/profileSetBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="닉네임"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="8"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/personalPrivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:outlineProvider="none">
+
+        <TextView
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="커뮤니티에 개인정보 노출"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/personalB"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
+            android:background="@drawable/background_rounded_corners_f07070">
+
+            <ImageView
+                android:id="@+id/personalPrivateS"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="2dp"
+                app:srcCompat="@drawable/rounded_984f4f" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/personalOnOff"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

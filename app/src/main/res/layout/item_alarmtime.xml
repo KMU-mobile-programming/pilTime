@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:layout_margin="0dp"
+    android:padding="0dp">
+
+    <TextView
+        android:id="@+id/textViewSettingAlarmTime"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:layout_weight="5"
+        android:padding="10dp"
+        android:text="시간"
+        android:textSize="25sp" />
+
+    <ImageButton
+        android:id="@+id/buttonDeleteTime"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:layout_weight="1"
+        android:padding="0dp"
+        app:srcCompat="@android:drawable/ic_delete" />
+</LinearLayout>

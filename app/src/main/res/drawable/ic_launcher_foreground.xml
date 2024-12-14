@@ -1,30 +1,56 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:endX="85.84757"
-                android:endY="92.4963"
-                android:startX="42.9492"
-                android:startY="49.59793"
-                android:type="linear">
-                <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
-                <item
-                    android:color="#00000000"
-                    android:offset="1.0" />
-            </gradient>
-        </aapt:attr>
-    </path>
+
+    <!-- 원형 배경 -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M54,0 A54,54 0 0,1 54,108 A54,54 0 0,1 54,0"/>
+
+    <!-- 캘린더 베이스 -->
     <path
         android:fillColor="#FFFFFF"
-        android:fillType="nonZero"
-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
+        android:pathData="M36,28 L72,28 A8,8 0 0,1 80,36 L80,72 A8,8 0 0,1 72,80 L36,80 A8,8 0 0,1 28,72 L28,36 A8,8 0 0,1 36,28"/>
+
+    <!-- 캘린더 상단 바 -->
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M36,28 L72,28 A8,8 0 0,1 80,36 L80,40 L28,40 L28,36 A8,8 0 0,1 36,28"/>
+
+    <!-- 캘린더 격자 선 -->
+    <path
+        android:strokeColor="#EDEDED"
         android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:pathData="M28,48 L80,48 M28,58 L80,58 M28,68 L80,68 M44,40 L44,80 M60,40 L60,80"/>
+
+    <!-- 알약 캡슐 (위쪽 - 흰색) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M50,40 L58,40 Q62,40 62,44 L62,54 L46,54 L46,44 Q46,40 50,40"/>
+
+    <!-- 알약 캡슐 (아래쪽 - 빨간색) -->
+    <path
+        android:fillColor="#FF5252"
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M46,54 L62,54 L62,64 Q62,68 58,68 L50,68 Q46,68 46,64 L46,54"/>
+
+    <!-- 알약 구분선 -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="1"
+        android:pathData="M46,54 L62,54"/>
+
+    <!-- 체크 표시 -->
+    <path
+        android:strokeColor="#00C853"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M65,65 L68,68 L75,61"/>
+
 </vector>
