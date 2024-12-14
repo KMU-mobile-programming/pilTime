@@ -261,7 +261,7 @@ class DataBase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         stmt.bindString(1, title)
         stmt.bindString(2, content)
         stmt.bindString(3, imageUri)
-        stmt.bindLong(4, postId)
+        stmt.bindLong(4, postId+1)
 
         val result = stmt.executeUpdateDelete()
         stmt.close()
@@ -274,7 +274,7 @@ class DataBase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         val stmt = db.compileStatement(
             "DELETE FROM $POSTS_TABLE WHERE post_id = ? AND user_id = ?"
         )
-        stmt.bindLong(1, postId)
+        stmt.bindLong(1, postId+1)
         stmt.bindString(2, userId)
 
         val result = stmt.executeUpdateDelete()

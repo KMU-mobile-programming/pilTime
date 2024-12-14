@@ -169,7 +169,7 @@ public class CommunityActivity extends AppCompatActivity {
             }
             else if (requestCode == EDIT_POST_REQUEST_CODE) {
                 // 게시글 수정
-                long postId = data.getLongExtra("postId", -1);
+                long postId = data.getIntExtra("postId", -1);
                 Log.d("CommunityPostActivity", "Edit Mode - PostId: " + postId);
 
                 if (postId != -1) {
