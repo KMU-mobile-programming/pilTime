@@ -15,6 +15,9 @@ import com.example.piltime.Activity.SettingsActivity // 설정 액티비티 가�
 import com.example.piltime.Activity.SettingsAlarmSettingActivity
 import com.example.piltime.Database.DataBase
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
@@ -29,6 +32,19 @@ class HomeActivity : AppCompatActivity() {
         // Intent로부터 사용자 정보 받기
         val userId = intent.getStringExtra("USER_ID") ?: "Unknown"
         val isGuest = intent.getBooleanExtra("IS_GUEST", false)
+
+        //날짜 표기
+        val dateText = findViewById<TextView>(R.id.dateText)
+
+        // 현재 날짜 가져오기
+        val currentDate = Calendar.getInstance().time
+
+        // 날짜 포맷 설정
+        val dateFormat = SimpleDateFormat("MM월 dd일 오늘", Locale.getDefault())
+        val formattedDate = dateFormat.format(currentDate)
+
+        // TextView에 날짜 설정
+        dateText.text = formattedDate
 
         // 환영 메시지 설정
 
