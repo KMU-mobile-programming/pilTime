@@ -80,5 +80,7 @@ public class AlarmListFragment extends androidx.fragment.app.DialogFragment {
             dialog.getWindow().setLayout(width, height);
         }
     }
+
+
 }
 

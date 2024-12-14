@@ -10,7 +10,6 @@ import android.os.Build;
 import com.example.piltime.Activity.AlarmSystemActivity.AlarmForm;
 import com.example.piltime.Activity.AlarmSystemActivity.DailyAlarm;
 import com.example.piltime.Activity.AlarmSystemActivity.IntervalType;
-import com.example.piltime.AlarmReceiver;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -9,9 +9,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="380dp"
+        android:layout_width="418dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="360dp"
         android:orientation="vertical"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
@@ -54,42 +54,63 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextId" />
+
+        <CheckBox
+            android:id="@+id/checkBoxAutoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-60dp"
+            android:layout_marginBottom="40dp"
+            android:text="로그인 유지"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
-        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
+        android:layout_width="415dp"
+        android:layout_height="188dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
+        <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
-            android:background="#00FF0000"
-            app:srcCompat="@drawable/login" />
+            android:background="@drawable/button_background_login"
+            android:elevation="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="로그인"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnGuestLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="10dp"
-            android:backgroundTint="#FF9800"
-            android:padding="5dp"
-            android:text="게스트로 로그인" />
+            android:background="@drawable/button_background_guest"
+            android:elevation="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="게스트로 로그인"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="#00FF0000"
-            android:padding="5dp"
-            android:text="회원가입" />
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_background_register"
+            android:elevation="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="회원가입"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <ImageView

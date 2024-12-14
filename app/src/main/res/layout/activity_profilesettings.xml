@@ -18,7 +18,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/rounded_984f4f"
             android:clipToOutline="true"
-            android:tint="#50000000"
             android:tintMode="src_over" />
 
         <LinearLayout
@@ -80,11 +79,13 @@
                     android:layout_weight="1"
                     android:textSize="18sp" />
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/editNickButton"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_weight="5"
-                    app:srcCompat="@android:drawable/ic_menu_edit" />
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    android:background="@android:color/transparent"/>
 
             </LinearLayout>
         </LinearLayout>

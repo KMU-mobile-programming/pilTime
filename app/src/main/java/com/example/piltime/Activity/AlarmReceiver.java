@@ -1,4 +1,4 @@
-package com.example.piltime;
+package com.example.piltime.Activity;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,6 +11,8 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+
+import com.example.piltime.R;
 
 import java.util.Objects;
 

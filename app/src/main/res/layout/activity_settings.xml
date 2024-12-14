@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF6E5"
     tools:context=".Activity.SettingsActivity">
 
     <!-- 상단 제목 -->

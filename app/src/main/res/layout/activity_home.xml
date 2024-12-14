@@ -18,6 +18,17 @@
             android:padding="20dp">
 
             <!-- 상단 상태 섹션 -->
+            <TextView
+                android:id="@+id/welcomeText"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:layout_marginBottom="28dp"
+                android:paddingTop="30dp"
+                android:textAlignment="center"
+                android:textColor="#333333"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="새로운 영양제가 추가되었어요!"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textColor="#000000"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -47,21 +58,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10월 2일 오늘"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="#333333"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- 환영 메시지 -->
-            <TextView
-                android:id="@+id/welcomeText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textColor="#333333"
-                android:layout_marginBottom="20dp"/>
 
             <!-- 메뉴 버튼 그리드 -->
             <GridLayout
@@ -83,7 +85,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:text="홈"
-                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
                         android:background="@android:color/transparent"/>
                 </androidx.cardview.widget.CardView>
 
@@ -99,7 +102,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:text="커뮤니티"
-                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
                         android:background="@android:color/transparent"/>
                 </androidx.cardview.widget.CardView>
 
@@ -115,7 +119,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:text="프로필"
-                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
                         android:background="@android:color/transparent"/>
                 </androidx.cardview.widget.CardView>
 
@@ -131,7 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:text="알람"
-                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
                         android:background="@android:color/transparent"/>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
@@ -145,19 +151,14 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/logoutButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:text="로그아웃"/>
-
-                <Button
                     android:id="@+id/settingsButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
                     android:layout_marginStart="8dp"
+                    android:background="#F07070"
                     android:text="설정"/>
             </LinearLayout>
         </LinearLayout>
